@@ -8,5 +8,5 @@
 .uvoptx
 .dep
 .bak
-LST/*
-OUT/*
+LST/
+OUT/
