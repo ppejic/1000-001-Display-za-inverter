@@ -1,0 +1,10 @@
+#Keil junk files
+.axf
+.build_log.htm
+.htm
+.lnp
+.sct
+.uvguix*
+.uvoptx
+.dep
+.bak

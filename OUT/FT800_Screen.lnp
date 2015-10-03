@@ -1,0 +1,26 @@
+--cpu Cortex-M4.fp
+".\out\main.o"
+".\out\_init.o"
+".\out\events.o"
+".\out\_watchdog.o"
+".\out\_ft800.o"
+".\out\_lcd_controller.o"
+".\out\_canreceive.o"
+".\out\_cansend.o"
+".\out\misc.o"
+".\out\stm32f4xx_exti.o"
+".\out\stm32f4xx_gpio.o"
+".\out\stm32f4xx_rcc.o"
+".\out\stm32f4xx_rtc.o"
+".\out\stm32f4xx_spi.o"
+".\out\stm32f4xx_syscfg.o"
+".\out\stm32f4xx_tim.o"
+".\out\stm32f4xx_pwr.o"
+"C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\LIB\ARM\RTX_CM4.lib"
+".\out\rtx_conf_cm.o"
+".\out\startup_stm32f407xx.o"
+".\out\system_stm32f4xx.o"
+--strict --scatter ".\OUT\FT800_Screen.sct"
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\LST\FT800_Screen.map" -o .\OUT\FT800_Screen.axf

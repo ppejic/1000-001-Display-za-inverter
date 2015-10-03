@@ -1,0 +1,21 @@
+.\out\_ft800.o: SRC\_FT800.c
+.\out\_ft800.o: .\SRC\HEADER\_FT800.h
+.\out\_ft800.o: .\LIB\HEADER\stm32f4xx.h
+.\out\_ft800.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cm4.h
+.\out\_ft800.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\out\_ft800.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmInstr.h
+.\out\_ft800.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\cmsis_armcc.h
+.\out\_ft800.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmFunc.h
+.\out\_ft800.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmSimd.h
+.\out\_ft800.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h
+.\out\_ft800.o: .\LIB\HEADER\stm32f4xx_conf.h
+.\out\_ft800.o: C:\Users\Predrag\Desktop\keil test\RTE\RTE_Components.h
+.\out\_ft800.o: .\LIB\HEADER\misc.h
+.\out\_ft800.o: .\LIB\HEADER\stm32f4xx.h
+.\out\_ft800.o: .\LIB\HEADER\stm32f4xx_spi.h
+.\out\_ft800.o: .\LIB\HEADER\stm32f4xx_gpio.h
+.\out\_ft800.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\out\_ft800.o: .\SRC\HEADER\events.h
+.\out\_ft800.o: .\LIB\HEADER\stm32f4xx_tim.h
+.\out\_ft800.o: .\LIB\HEADER\stm32f4xx_exti.h
+.\out\_ft800.o: .\LIB\HEADER\stm32f4xx_rcc.h
