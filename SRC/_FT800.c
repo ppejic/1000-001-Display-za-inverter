@@ -214,18 +214,18 @@ void FT800_Init(void) {
 	
 	GPIO_WriteBit(GPIOB, FT800_PD_N, Bit_SET);
 	GPIO_WriteBit(GPIOB, FT800_CS_N, Bit_SET);
-	Delay(20);
+	osDelay(20);
 	GPIO_WriteBit(GPIOB, FT800_PD_N, Bit_RESET);
-	Delay(20);
+	osDelay(20);
 	GPIO_WriteBit(GPIOB, FT800_PD_N, Bit_SET);
-	Delay(20);
+	osDelay(20);
 	
 	FT800_Cmd_Write(FT800_ACTIVE);
-	Delay(5);
+	osDelay(5);
 	FT800_Cmd_Write(FT800_CLKEXT);
-	Delay(5);
+	osDelay(5);
 	FT800_Cmd_Write(FT800_CLK48M);
-	Delay(5);
+	osDelay(5);
 	
 	while(FT800_Mem_Read8(REG_ID) != 0x7C) {
 		__NOP();
@@ -272,7 +272,7 @@ void FT800_Init(void) {
 	
 	for(duty = 64; duty <= 128; duty++) {
 		FT800_Mem_Write8(REG_PWM_DUTY, duty);
-		Delay(15);
+		osDelay(15);
 	}
 	
 	FT800_Mem_Write8(REG_INT_MASK, 0x02);
@@ -923,7 +923,7 @@ void FT800_MainScreen(void) {
 
 		FT800_Mem_Write16(REG_CMD_WRITE, (cmdOffset));					// Update the ring buffer pointer so the graphics processor starts executing	
 		
-		Delay(10);
+		osDelay(10);
 	}
 }
 
@@ -979,7 +979,7 @@ void FT800_LoginScreen(void) {
 
 		FT800_Mem_Write16(REG_CMD_WRITE, (cmdOffset));
 		
-		Delay(10);
+		osDelay(10);
 	}
 }
 
@@ -1081,7 +1081,7 @@ void FT800_VehicleStatusScreen(void) {
 
 		FT800_Mem_Write16(REG_CMD_WRITE, (cmdOffset));					// Update the ring buffer pointer so the graphics processor starts executing			
 
-		Delay(10);
+		osDelay(10);
 	}
 }
 
@@ -1154,7 +1154,7 @@ void FT800_AdminMenuScreen(void) {
 
 		FT800_Mem_Write16(REG_CMD_WRITE, (cmdOffset));					// Update the ring buffer pointer so the graphics processor starts executing	
 
-		Delay(10);
+		osDelay(10);
   }
 }
 

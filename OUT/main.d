@@ -1,5 +1,4 @@
 .\out\main.o: SRC\main.c
-.\out\main.o: .\SRC\HEADER\main.h
 .\out\main.o: .\LIB\HEADER\stm32f4xx.h
 .\out\main.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cm4.h
 .\out\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
@@ -9,20 +8,12 @@
 .\out\main.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmSimd.h
 .\out\main.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h
 .\out\main.o: .\LIB\HEADER\stm32f4xx_conf.h
-.\out\main.o: C:\Users\Predrag\Desktop\keil test\RTE\RTE_Components.h
+.\out\main.o: C:\Users\Predrag\Copy\Projects\Tema d.o.o\1000-001-Display-za-inverter\RTE\RTE_Components.h
 .\out\main.o: .\LIB\HEADER\misc.h
 .\out\main.o: .\LIB\HEADER\stm32f4xx.h
-.\out\main.o: .\SRC\HEADER\_init.h
-.\out\main.o: .\LIB\HEADER\stm32f4xx_spi.h
-.\out\main.o: .\LIB\HEADER\stm32f4xx_gpio.h
-.\out\main.o: .\LIB\HEADER\stm32f4xx_rcc.h
-.\out\main.o: .\LIB\HEADER\stm32f4xx_rtc.h
-.\out\main.o: .\LIB\HEADER\stm32f4xx_pwr.h
-.\out\main.o: .\LIB\HEADER\stm32f4xx_exti.h
-.\out\main.o: .\LIB\HEADER\stm32f4xx_syscfg.h
 .\out\main.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC\cmsis_os.h
 .\out\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
-.\out\main.o: .\SRC\HEADER\_FT800.h
+.\out\main.o: .\SRC\HEADER\ft800_driver.h
+.\out\main.o: .\LIB\HEADER\stm32f4xx_spi.h
+.\out\main.o: .\LIB\HEADER\stm32f4xx_gpio.h
 .\out\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-.\out\main.o: .\SRC\HEADER\events.h
-.\out\main.o: .\LIB\HEADER\stm32f4xx_tim.h

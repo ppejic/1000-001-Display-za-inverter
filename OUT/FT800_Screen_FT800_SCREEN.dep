@@ -1,7 +1,6 @@
 Dependencies for Project 'FT800_Screen', Target 'FT800_SCREEN': (DO NOT MODIFY !)
-F (.\SRC\main.c)(0x54621AFB)(-c --cpu Cortex-M4.fp -D__RTX -g -O0 --apcs=interwork -I.\SRC\HEADER -I.\LIB\HEADER-I "C:\Users\Predrag\Desktop\keil test\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Device\Include-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_STDPERIPH_DRIVER-o .\out\main.o --omf_browse .\out\main.crf --depend .\out\main.d)
-I (.\SRC\HEADER\main.h)(0x544C0EF2)
-I (.\LIB\HEADER\stm32f4xx.h)(0x4EAA766C)
+F (.\SRC\main.c)(0x560FE13A)(-c --cpu Cortex-M4.fp -D__RTX -g -O0 --apcs=interwork -I.\SRC\HEADER -I.\LIB\HEADER-I "C:\Users\Predrag\Copy\Projects\Tema d.o.o\1000-001-Display-za-inverter\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Device\Include-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_STDPERIPH_DRIVER-o .\out\main.o --omf_browse .\out\main.crf --depend .\out\main.d)
+I (.\LIB\HEADER\stm32f4xx.h)(0x560FDB47)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cm4.h)(0x55D56D64)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54766380)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmInstr.h)(0x55D47368)
@@ -9,27 +8,20 @@ I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\cmsis_armcc.h)(0x55D5BA1A)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmFunc.h)(0x55D47368)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmSimd.h)(0x55D47368)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h)(0x55BF2646)
-I (.\LIB\HEADER\stm32f4xx_conf.h)(0x544B59DF)
-I (C:\Users\Predrag\Desktop\keil test\RTE\RTE_Components.h)(0x5484AFA2)
-I (.\LIB\HEADER\misc.h)(0x4EAA766F)
-I (.\SRC\HEADER\_init.h)(0x544C105F)
-I (.\LIB\HEADER\stm32f4xx_spi.h)(0x4EAA766E)
-I (.\LIB\HEADER\stm32f4xx_gpio.h)(0x4EAA766F)
-I (.\LIB\HEADER\stm32f4xx_rcc.h)(0x4EAA766D)
-I (.\LIB\HEADER\stm32f4xx_rtc.h)(0x4EAA766F)
-I (.\LIB\HEADER\stm32f4xx_pwr.h)(0x4EAA766E)
-I (.\LIB\HEADER\stm32f4xx_exti.h)(0x4EAA766E)
-I (.\LIB\HEADER\stm32f4xx_syscfg.h)(0x4EAA766E)
+I (.\LIB\HEADER\stm32f4xx_conf.h)(0x560FDB47)
+I (C:\Users\Predrag\Copy\Projects\Tema d.o.o\1000-001-Display-za-inverter\RTE\RTE_Components.h)(0x560FDB47)
+I (.\LIB\HEADER\misc.h)(0x560FDB47)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC\cmsis_os.h)(0x55A5073A)
 I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x54766380)
-I (.\SRC\HEADER\_FT800.h)(0x544CD586)
+I (.\SRC\HEADER\ft800_driver.h)(0x560FDDAF)
+I (.\LIB\HEADER\stm32f4xx_spi.h)(0x560FDB47)
+I (.\LIB\HEADER\stm32f4xx_gpio.h)(0x560FDB47)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x54766380)
-I (.\SRC\HEADER\events.h)(0x544B5C18)
-I (.\LIB\HEADER\stm32f4xx_tim.h)(0x4EAA766D)
-F (.\SRC\HEADER\main.h)(0x544C0EF2)()
-F (.\SRC\_init.c)(0x54898D7B)(-c --cpu Cortex-M4.fp -D__RTX -g -O0 --apcs=interwork -I.\SRC\HEADER -I.\LIB\HEADER-I "C:\Users\Predrag\Desktop\keil test\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Device\Include-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_STDPERIPH_DRIVER-o .\out\_init.o --omf_browse .\out\_init.crf --depend .\out\_init.d)
-I (.\SRC\HEADER\_init.h)(0x544C105F)
-I (.\LIB\HEADER\stm32f4xx.h)(0x4EAA766C)
+F (.\SRC\_init.c)(0x560FDD77)()
+F (.\SRC\HEADER\_init.h)(0x560FDB47)()
+F (.\SRC\events.c)(0x560FDB47)(-c --cpu Cortex-M4.fp -D__RTX -g -O0 --apcs=interwork -I.\SRC\HEADER -I.\LIB\HEADER-I "C:\Users\Predrag\Copy\Projects\Tema d.o.o\1000-001-Display-za-inverter\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Device\Include-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_STDPERIPH_DRIVER-o .\out\events.o --omf_browse .\out\events.crf --depend .\out\events.d)
+I (.\SRC\HEADER\events.h)(0x560FDB47)
+I (.\LIB\HEADER\stm32f4xx.h)(0x560FDB47)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cm4.h)(0x55D56D64)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54766380)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmInstr.h)(0x55D47368)
@@ -37,26 +29,61 @@ I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\cmsis_armcc.h)(0x55D5BA1A)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmFunc.h)(0x55D47368)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmSimd.h)(0x55D47368)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h)(0x55BF2646)
-I (.\LIB\HEADER\stm32f4xx_conf.h)(0x544B59DF)
-I (C:\Users\Predrag\Desktop\keil test\RTE\RTE_Components.h)(0x5484AFA2)
-I (.\LIB\HEADER\misc.h)(0x4EAA766F)
-I (.\LIB\HEADER\stm32f4xx_spi.h)(0x4EAA766E)
-I (.\LIB\HEADER\stm32f4xx_gpio.h)(0x4EAA766F)
-I (.\LIB\HEADER\stm32f4xx_rcc.h)(0x4EAA766D)
-I (.\LIB\HEADER\stm32f4xx_rtc.h)(0x4EAA766F)
-I (.\LIB\HEADER\stm32f4xx_pwr.h)(0x4EAA766E)
-I (.\LIB\HEADER\stm32f4xx_exti.h)(0x4EAA766E)
-I (.\LIB\HEADER\stm32f4xx_syscfg.h)(0x4EAA766E)
+I (.\LIB\HEADER\stm32f4xx_conf.h)(0x560FDB47)
+I (C:\Users\Predrag\Copy\Projects\Tema d.o.o\1000-001-Display-za-inverter\RTE\RTE_Components.h)(0x560FDB47)
+I (.\LIB\HEADER\misc.h)(0x560FDB47)
+I (.\LIB\HEADER\stm32f4xx_tim.h)(0x560FDB47)
+I (.\LIB\HEADER\stm32f4xx_exti.h)(0x560FDB47)
+I (.\LIB\HEADER\stm32f4xx_rcc.h)(0x560FDB47)
+I (.\SRC\HEADER\_FT800.h)(0x560FDB47)
+I (.\LIB\HEADER\stm32f4xx_spi.h)(0x560FDB47)
+I (.\LIB\HEADER\stm32f4xx_gpio.h)(0x560FDB47)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x54766380)
+I (.\LIB\HEADER\stm32f4xx_rtc.h)(0x560FDB47)
+F (.\SRC\HEADER\events.h)(0x560FDB47)()
+F (.\SRC\_Watchdog.c)(0x560FDB47)(-c --cpu Cortex-M4.fp -D__RTX -g -O0 --apcs=interwork -I.\SRC\HEADER -I.\LIB\HEADER-I "C:\Users\Predrag\Copy\Projects\Tema d.o.o\1000-001-Display-za-inverter\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Device\Include-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_STDPERIPH_DRIVER-o .\out\_watchdog.o --omf_browse .\out\_watchdog.crf --depend .\out\_watchdog.d)
+I (.\SRC\HEADER\_Watchdog.h)(0x560FDB47)
+I (.\LIB\HEADER\stm32f4xx.h)(0x560FDB47)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cm4.h)(0x55D56D64)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54766380)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmInstr.h)(0x55D47368)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\cmsis_armcc.h)(0x55D5BA1A)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmFunc.h)(0x55D47368)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmSimd.h)(0x55D47368)
+I (C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h)(0x55BF2646)
+I (.\LIB\HEADER\stm32f4xx_conf.h)(0x560FDB47)
+I (C:\Users\Predrag\Copy\Projects\Tema d.o.o\1000-001-Display-za-inverter\RTE\RTE_Components.h)(0x560FDB47)
+I (.\LIB\HEADER\misc.h)(0x560FDB47)
+F (.\SRC\HEADER\_Watchdog.h)(0x560FDB47)()
+F (.\SRC\HEADER\config.h)(0x560FDB47)()
+F (.\SRC\_FT800.c)(0x560FE20E)()
+F (.\SRC\HEADER\_FT800.h)(0x560FDB47)()
+F (.\SRC\ft800_driver.c)(0x560FE482)(-c --cpu Cortex-M4.fp -D__RTX -g -O0 --apcs=interwork -I.\SRC\HEADER -I.\LIB\HEADER-I "C:\Users\Predrag\Copy\Projects\Tema d.o.o\1000-001-Display-za-inverter\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Device\Include-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_STDPERIPH_DRIVER-o .\out\ft800_driver.o --omf_browse .\out\ft800_driver.crf --depend .\out\ft800_driver.d)
+I (.\SRC\HEADER\ft800_driver.h)(0x560FDDAF)
+I (.\LIB\HEADER\stm32f4xx.h)(0x560FDB47)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cm4.h)(0x55D56D64)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54766380)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmInstr.h)(0x55D47368)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\cmsis_armcc.h)(0x55D5BA1A)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmFunc.h)(0x55D47368)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmSimd.h)(0x55D47368)
+I (C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h)(0x55BF2646)
+I (.\LIB\HEADER\stm32f4xx_conf.h)(0x560FDB47)
+I (C:\Users\Predrag\Copy\Projects\Tema d.o.o\1000-001-Display-za-inverter\RTE\RTE_Components.h)(0x560FDB47)
+I (.\LIB\HEADER\misc.h)(0x560FDB47)
+I (.\LIB\HEADER\stm32f4xx_spi.h)(0x560FDB47)
+I (.\LIB\HEADER\stm32f4xx_gpio.h)(0x560FDB47)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x54766380)
+I (.\SRC\HEADER\events.h)(0x560FDB47)
+I (.\LIB\HEADER\stm32f4xx_tim.h)(0x560FDB47)
+I (.\LIB\HEADER\stm32f4xx_exti.h)(0x560FDB47)
+I (.\LIB\HEADER\stm32f4xx_rcc.h)(0x560FDB47)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC\cmsis_os.h)(0x55A5073A)
 I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x54766380)
-I (.\SRC\HEADER\_FT800.h)(0x544CD586)
-I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x54766380)
-I (.\SRC\HEADER\events.h)(0x544B5C18)
-I (.\LIB\HEADER\stm32f4xx_tim.h)(0x4EAA766D)
-F (.\SRC\HEADER\_init.h)(0x544C105F)()
-F (.\SRC\events.c)(0x544C0EE5)(-c --cpu Cortex-M4.fp -D__RTX -g -O0 --apcs=interwork -I.\SRC\HEADER -I.\LIB\HEADER-I "C:\Users\Predrag\Desktop\keil test\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Device\Include-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_STDPERIPH_DRIVER-o .\out\events.o --omf_browse .\out\events.crf --depend .\out\events.d)
-I (.\SRC\HEADER\events.h)(0x544B5C18)
-I (.\LIB\HEADER\stm32f4xx.h)(0x4EAA766C)
+F (.\SRC\HEADER\ft800_driver.h)(0x560FDDAF)()
+F (.\LIB\SOURCE\misc.c)(0x560FDB47)(-c --cpu Cortex-M4.fp -D__RTX -g -O0 --apcs=interwork -I.\SRC\HEADER -I.\LIB\HEADER-I "C:\Users\Predrag\Copy\Projects\Tema d.o.o\1000-001-Display-za-inverter\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Device\Include-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_STDPERIPH_DRIVER-o .\out\misc.o --omf_browse .\out\misc.crf --depend .\out\misc.d)
+I (.\LIB\HEADER\misc.h)(0x560FDB47)
+I (.\LIB\HEADER\stm32f4xx.h)(0x560FDB47)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cm4.h)(0x55D56D64)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54766380)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmInstr.h)(0x55D47368)
@@ -64,21 +91,11 @@ I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\cmsis_armcc.h)(0x55D5BA1A)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmFunc.h)(0x55D47368)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmSimd.h)(0x55D47368)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h)(0x55BF2646)
-I (.\LIB\HEADER\stm32f4xx_conf.h)(0x544B59DF)
-I (C:\Users\Predrag\Desktop\keil test\RTE\RTE_Components.h)(0x5484AFA2)
-I (.\LIB\HEADER\misc.h)(0x4EAA766F)
-I (.\LIB\HEADER\stm32f4xx_tim.h)(0x4EAA766D)
-I (.\LIB\HEADER\stm32f4xx_exti.h)(0x4EAA766E)
-I (.\LIB\HEADER\stm32f4xx_rcc.h)(0x4EAA766D)
-I (.\SRC\HEADER\_FT800.h)(0x544CD586)
-I (.\LIB\HEADER\stm32f4xx_spi.h)(0x4EAA766E)
-I (.\LIB\HEADER\stm32f4xx_gpio.h)(0x4EAA766F)
-I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x54766380)
-I (.\LIB\HEADER\stm32f4xx_rtc.h)(0x4EAA766F)
-F (.\SRC\HEADER\events.h)(0x544B5C18)()
-F (.\SRC\_Watchdog.c)(0x544CCD46)(-c --cpu Cortex-M4.fp -D__RTX -g -O0 --apcs=interwork -I.\SRC\HEADER -I.\LIB\HEADER-I "C:\Users\Predrag\Desktop\keil test\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Device\Include-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_STDPERIPH_DRIVER-o .\out\_watchdog.o --omf_browse .\out\_watchdog.crf --depend .\out\_watchdog.d)
-I (.\SRC\HEADER\_Watchdog.h)(0x544C105E)
-I (.\LIB\HEADER\stm32f4xx.h)(0x4EAA766C)
+I (.\LIB\HEADER\stm32f4xx_conf.h)(0x560FDB47)
+I (C:\Users\Predrag\Copy\Projects\Tema d.o.o\1000-001-Display-za-inverter\RTE\RTE_Components.h)(0x560FDB47)
+F (.\LIB\SOURCE\stm32f4xx_exti.c)(0x560FDB47)(-c --cpu Cortex-M4.fp -D__RTX -g -O0 --apcs=interwork -I.\SRC\HEADER -I.\LIB\HEADER-I "C:\Users\Predrag\Copy\Projects\Tema d.o.o\1000-001-Display-za-inverter\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Device\Include-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_STDPERIPH_DRIVER-o .\out\stm32f4xx_exti.o --omf_browse .\out\stm32f4xx_exti.crf --depend .\out\stm32f4xx_exti.d)
+I (.\LIB\HEADER\stm32f4xx_exti.h)(0x560FDB47)
+I (.\LIB\HEADER\stm32f4xx.h)(0x560FDB47)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cm4.h)(0x55D56D64)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54766380)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmInstr.h)(0x55D47368)
@@ -86,14 +103,12 @@ I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\cmsis_armcc.h)(0x55D5BA1A)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmFunc.h)(0x55D47368)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmSimd.h)(0x55D47368)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h)(0x55BF2646)
-I (.\LIB\HEADER\stm32f4xx_conf.h)(0x544B59DF)
-I (C:\Users\Predrag\Desktop\keil test\RTE\RTE_Components.h)(0x5484AFA2)
-I (.\LIB\HEADER\misc.h)(0x4EAA766F)
-F (.\SRC\HEADER\_Watchdog.h)(0x544C105E)()
-F (.\SRC\HEADER\config.h)(0x544C0861)()
-F (.\SRC\_FT800.c)(0x5488ACE8)(-c --cpu Cortex-M4.fp -D__RTX -g -O0 --apcs=interwork -I.\SRC\HEADER -I.\LIB\HEADER-I "C:\Users\Predrag\Desktop\keil test\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Device\Include-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_STDPERIPH_DRIVER-o .\out\_ft800.o --omf_browse .\out\_ft800.crf --depend .\out\_ft800.d)
-I (.\SRC\HEADER\_FT800.h)(0x544CD586)
-I (.\LIB\HEADER\stm32f4xx.h)(0x4EAA766C)
+I (.\LIB\HEADER\stm32f4xx_conf.h)(0x560FDB47)
+I (C:\Users\Predrag\Copy\Projects\Tema d.o.o\1000-001-Display-za-inverter\RTE\RTE_Components.h)(0x560FDB47)
+I (.\LIB\HEADER\misc.h)(0x560FDB47)
+F (.\LIB\SOURCE\stm32f4xx_gpio.c)(0x560FDB47)(-c --cpu Cortex-M4.fp -D__RTX -g -O0 --apcs=interwork -I.\SRC\HEADER -I.\LIB\HEADER-I "C:\Users\Predrag\Copy\Projects\Tema d.o.o\1000-001-Display-za-inverter\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Device\Include-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_STDPERIPH_DRIVER-o .\out\stm32f4xx_gpio.o --omf_browse .\out\stm32f4xx_gpio.crf --depend .\out\stm32f4xx_gpio.d)
+I (.\LIB\HEADER\stm32f4xx_gpio.h)(0x560FDB47)
+I (.\LIB\HEADER\stm32f4xx.h)(0x560FDB47)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cm4.h)(0x55D56D64)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54766380)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmInstr.h)(0x55D47368)
@@ -101,20 +116,13 @@ I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\cmsis_armcc.h)(0x55D5BA1A)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmFunc.h)(0x55D47368)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmSimd.h)(0x55D47368)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h)(0x55BF2646)
-I (.\LIB\HEADER\stm32f4xx_conf.h)(0x544B59DF)
-I (C:\Users\Predrag\Desktop\keil test\RTE\RTE_Components.h)(0x5484AFA2)
-I (.\LIB\HEADER\misc.h)(0x4EAA766F)
-I (.\LIB\HEADER\stm32f4xx_spi.h)(0x4EAA766E)
-I (.\LIB\HEADER\stm32f4xx_gpio.h)(0x4EAA766F)
-I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x54766380)
-I (.\SRC\HEADER\events.h)(0x544B5C18)
-I (.\LIB\HEADER\stm32f4xx_tim.h)(0x4EAA766D)
-I (.\LIB\HEADER\stm32f4xx_exti.h)(0x4EAA766E)
-I (.\LIB\HEADER\stm32f4xx_rcc.h)(0x4EAA766D)
-F (.\SRC\HEADER\_FT800.h)(0x544CD586)()
-F (.\SRC\_lcd_controller.c)(0x544CCD36)(-c --cpu Cortex-M4.fp -D__RTX -g -O0 --apcs=interwork -I.\SRC\HEADER -I.\LIB\HEADER-I "C:\Users\Predrag\Desktop\keil test\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Device\Include-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_STDPERIPH_DRIVER-o .\out\_lcd_controller.o --omf_browse .\out\_lcd_controller.crf --depend .\out\_lcd_controller.d)
-I (.\SRC\HEADER\_lcd_controller.h)(0x542FC4A9)
-I (.\LIB\HEADER\stm32f4xx.h)(0x4EAA766C)
+I (.\LIB\HEADER\stm32f4xx_conf.h)(0x560FDB47)
+I (C:\Users\Predrag\Copy\Projects\Tema d.o.o\1000-001-Display-za-inverter\RTE\RTE_Components.h)(0x560FDB47)
+I (.\LIB\HEADER\misc.h)(0x560FDB47)
+I (.\LIB\HEADER\stm32f4xx_rcc.h)(0x560FDB47)
+F (.\LIB\SOURCE\stm32f4xx_rcc.c)(0x560FDB47)(-c --cpu Cortex-M4.fp -D__RTX -g -O0 --apcs=interwork -I.\SRC\HEADER -I.\LIB\HEADER-I "C:\Users\Predrag\Copy\Projects\Tema d.o.o\1000-001-Display-za-inverter\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Device\Include-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_STDPERIPH_DRIVER-o .\out\stm32f4xx_rcc.o --omf_browse .\out\stm32f4xx_rcc.crf --depend .\out\stm32f4xx_rcc.d)
+I (.\LIB\HEADER\stm32f4xx_rcc.h)(0x560FDB47)
+I (.\LIB\HEADER\stm32f4xx.h)(0x560FDB47)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cm4.h)(0x55D56D64)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54766380)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmInstr.h)(0x55D47368)
@@ -122,13 +130,12 @@ I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\cmsis_armcc.h)(0x55D5BA1A)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmFunc.h)(0x55D47368)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmSimd.h)(0x55D47368)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h)(0x55BF2646)
-I (.\LIB\HEADER\stm32f4xx_conf.h)(0x544B59DF)
-I (C:\Users\Predrag\Desktop\keil test\RTE\RTE_Components.h)(0x5484AFA2)
-I (.\LIB\HEADER\misc.h)(0x4EAA766F)
-F (.\SRC\HEADER\_lcd_controller.h)(0x542FC4A9)()
-F (.\SRC\_CANReceive.c)(0x544CCD2C)(-c --cpu Cortex-M4.fp -D__RTX -g -O0 --apcs=interwork -I.\SRC\HEADER -I.\LIB\HEADER-I "C:\Users\Predrag\Desktop\keil test\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Device\Include-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_STDPERIPH_DRIVER-o .\out\_canreceive.o --omf_browse .\out\_canreceive.crf --depend .\out\_canreceive.d)
-I (.\SRC\HEADER\_CANReceive.h)(0x544C0F4D)
-I (.\LIB\HEADER\stm32f4xx.h)(0x4EAA766C)
+I (.\LIB\HEADER\stm32f4xx_conf.h)(0x560FDB47)
+I (C:\Users\Predrag\Copy\Projects\Tema d.o.o\1000-001-Display-za-inverter\RTE\RTE_Components.h)(0x560FDB47)
+I (.\LIB\HEADER\misc.h)(0x560FDB47)
+F (.\LIB\SOURCE\stm32f4xx_rtc.c)(0x560FDB47)(-c --cpu Cortex-M4.fp -D__RTX -g -O0 --apcs=interwork -I.\SRC\HEADER -I.\LIB\HEADER-I "C:\Users\Predrag\Copy\Projects\Tema d.o.o\1000-001-Display-za-inverter\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Device\Include-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_STDPERIPH_DRIVER-o .\out\stm32f4xx_rtc.o --omf_browse .\out\stm32f4xx_rtc.crf --depend .\out\stm32f4xx_rtc.d)
+I (.\LIB\HEADER\stm32f4xx_rtc.h)(0x560FDB47)
+I (.\LIB\HEADER\stm32f4xx.h)(0x560FDB47)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cm4.h)(0x55D56D64)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54766380)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmInstr.h)(0x55D47368)
@@ -136,13 +143,13 @@ I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\cmsis_armcc.h)(0x55D5BA1A)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmFunc.h)(0x55D47368)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmSimd.h)(0x55D47368)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h)(0x55BF2646)
-I (.\LIB\HEADER\stm32f4xx_conf.h)(0x544B59DF)
-I (C:\Users\Predrag\Desktop\keil test\RTE\RTE_Components.h)(0x5484AFA2)
-I (.\LIB\HEADER\misc.h)(0x4EAA766F)
-F (.\SRC\HEADER\_CANReceive.h)(0x544C0F4D)()
-F (.\SRC\_CANSend.c)(0x544CCD31)(-c --cpu Cortex-M4.fp -D__RTX -g -O0 --apcs=interwork -I.\SRC\HEADER -I.\LIB\HEADER-I "C:\Users\Predrag\Desktop\keil test\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Device\Include-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_STDPERIPH_DRIVER-o .\out\_cansend.o --omf_browse .\out\_cansend.crf --depend .\out\_cansend.d)
-I (.\SRC\HEADER\_CANSend.h)(0x544C0F5D)
-I (.\LIB\HEADER\stm32f4xx.h)(0x4EAA766C)
+I (.\LIB\HEADER\stm32f4xx_conf.h)(0x560FDB47)
+I (C:\Users\Predrag\Copy\Projects\Tema d.o.o\1000-001-Display-za-inverter\RTE\RTE_Components.h)(0x560FDB47)
+I (.\LIB\HEADER\misc.h)(0x560FDB47)
+I (.\LIB\HEADER\stm32f4xx_rcc.h)(0x560FDB47)
+F (.\LIB\SOURCE\stm32f4xx_spi.c)(0x560FDB47)(-c --cpu Cortex-M4.fp -D__RTX -g -O0 --apcs=interwork -I.\SRC\HEADER -I.\LIB\HEADER-I "C:\Users\Predrag\Copy\Projects\Tema d.o.o\1000-001-Display-za-inverter\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Device\Include-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_STDPERIPH_DRIVER-o .\out\stm32f4xx_spi.o --omf_browse .\out\stm32f4xx_spi.crf --depend .\out\stm32f4xx_spi.d)
+I (.\LIB\HEADER\stm32f4xx_spi.h)(0x560FDB47)
+I (.\LIB\HEADER\stm32f4xx.h)(0x560FDB47)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cm4.h)(0x55D56D64)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54766380)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmInstr.h)(0x55D47368)
@@ -150,13 +157,13 @@ I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\cmsis_armcc.h)(0x55D5BA1A)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmFunc.h)(0x55D47368)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmSimd.h)(0x55D47368)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h)(0x55BF2646)
-I (.\LIB\HEADER\stm32f4xx_conf.h)(0x544B59DF)
-I (C:\Users\Predrag\Desktop\keil test\RTE\RTE_Components.h)(0x5484AFA2)
-I (.\LIB\HEADER\misc.h)(0x4EAA766F)
-F (.\SRC\HEADER\_CANSend.h)(0x544C0F5D)()
-F (.\LIB\SOURCE\misc.c)(0x4EAA766F)(-c --cpu Cortex-M4.fp -D__RTX -g -O0 --apcs=interwork -I.\SRC\HEADER -I.\LIB\HEADER-I "C:\Users\Predrag\Desktop\keil test\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Device\Include-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_STDPERIPH_DRIVER-o .\out\misc.o --omf_browse .\out\misc.crf --depend .\out\misc.d)
-I (.\LIB\HEADER\misc.h)(0x4EAA766F)
-I (.\LIB\HEADER\stm32f4xx.h)(0x4EAA766C)
+I (.\LIB\HEADER\stm32f4xx_conf.h)(0x560FDB47)
+I (C:\Users\Predrag\Copy\Projects\Tema d.o.o\1000-001-Display-za-inverter\RTE\RTE_Components.h)(0x560FDB47)
+I (.\LIB\HEADER\misc.h)(0x560FDB47)
+I (.\LIB\HEADER\stm32f4xx_rcc.h)(0x560FDB47)
+F (.\LIB\SOURCE\stm32f4xx_syscfg.c)(0x560FDB47)(-c --cpu Cortex-M4.fp -D__RTX -g -O0 --apcs=interwork -I.\SRC\HEADER -I.\LIB\HEADER-I "C:\Users\Predrag\Copy\Projects\Tema d.o.o\1000-001-Display-za-inverter\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Device\Include-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_STDPERIPH_DRIVER-o .\out\stm32f4xx_syscfg.o --omf_browse .\out\stm32f4xx_syscfg.crf --depend .\out\stm32f4xx_syscfg.d)
+I (.\LIB\HEADER\stm32f4xx_syscfg.h)(0x560FDB47)
+I (.\LIB\HEADER\stm32f4xx.h)(0x560FDB47)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cm4.h)(0x55D56D64)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54766380)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmInstr.h)(0x55D47368)
@@ -164,11 +171,13 @@ I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\cmsis_armcc.h)(0x55D5BA1A)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmFunc.h)(0x55D47368)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmSimd.h)(0x55D47368)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h)(0x55BF2646)
-I (.\LIB\HEADER\stm32f4xx_conf.h)(0x544B59DF)
-I (C:\Users\Predrag\Desktop\keil test\RTE\RTE_Components.h)(0x5484AFA2)
-F (.\LIB\SOURCE\stm32f4xx_exti.c)(0x4EAA766E)(-c --cpu Cortex-M4.fp -D__RTX -g -O0 --apcs=interwork -I.\SRC\HEADER -I.\LIB\HEADER-I "C:\Users\Predrag\Desktop\keil test\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Device\Include-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_STDPERIPH_DRIVER-o .\out\stm32f4xx_exti.o --omf_browse .\out\stm32f4xx_exti.crf --depend .\out\stm32f4xx_exti.d)
-I (.\LIB\HEADER\stm32f4xx_exti.h)(0x4EAA766E)
-I (.\LIB\HEADER\stm32f4xx.h)(0x4EAA766C)
+I (.\LIB\HEADER\stm32f4xx_conf.h)(0x560FDB47)
+I (C:\Users\Predrag\Copy\Projects\Tema d.o.o\1000-001-Display-za-inverter\RTE\RTE_Components.h)(0x560FDB47)
+I (.\LIB\HEADER\misc.h)(0x560FDB47)
+I (.\LIB\HEADER\stm32f4xx_rcc.h)(0x560FDB47)
+F (.\LIB\SOURCE\stm32f4xx_tim.c)(0x560FDB47)(-c --cpu Cortex-M4.fp -D__RTX -g -O0 --apcs=interwork -I.\SRC\HEADER -I.\LIB\HEADER-I "C:\Users\Predrag\Copy\Projects\Tema d.o.o\1000-001-Display-za-inverter\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Device\Include-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_STDPERIPH_DRIVER-o .\out\stm32f4xx_tim.o --omf_browse .\out\stm32f4xx_tim.crf --depend .\out\stm32f4xx_tim.d)
+I (.\LIB\HEADER\stm32f4xx_tim.h)(0x560FDB47)
+I (.\LIB\HEADER\stm32f4xx.h)(0x560FDB47)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cm4.h)(0x55D56D64)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54766380)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmInstr.h)(0x55D47368)
@@ -176,12 +185,13 @@ I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\cmsis_armcc.h)(0x55D5BA1A)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmFunc.h)(0x55D47368)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmSimd.h)(0x55D47368)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h)(0x55BF2646)
-I (.\LIB\HEADER\stm32f4xx_conf.h)(0x544B59DF)
-I (C:\Users\Predrag\Desktop\keil test\RTE\RTE_Components.h)(0x5484AFA2)
-I (.\LIB\HEADER\misc.h)(0x4EAA766F)
-F (.\LIB\SOURCE\stm32f4xx_gpio.c)(0x4EAA766E)(-c --cpu Cortex-M4.fp -D__RTX -g -O0 --apcs=interwork -I.\SRC\HEADER -I.\LIB\HEADER-I "C:\Users\Predrag\Desktop\keil test\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Device\Include-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_STDPERIPH_DRIVER-o .\out\stm32f4xx_gpio.o --omf_browse .\out\stm32f4xx_gpio.crf --depend .\out\stm32f4xx_gpio.d)
-I (.\LIB\HEADER\stm32f4xx_gpio.h)(0x4EAA766F)
-I (.\LIB\HEADER\stm32f4xx.h)(0x4EAA766C)
+I (.\LIB\HEADER\stm32f4xx_conf.h)(0x560FDB47)
+I (C:\Users\Predrag\Copy\Projects\Tema d.o.o\1000-001-Display-za-inverter\RTE\RTE_Components.h)(0x560FDB47)
+I (.\LIB\HEADER\misc.h)(0x560FDB47)
+I (.\LIB\HEADER\stm32f4xx_rcc.h)(0x560FDB47)
+F (.\LIB\SOURCE\stm32f4xx_pwr.c)(0x560FDB47)(-c --cpu Cortex-M4.fp -D__RTX -g -O0 --apcs=interwork -I.\SRC\HEADER -I.\LIB\HEADER-I "C:\Users\Predrag\Copy\Projects\Tema d.o.o\1000-001-Display-za-inverter\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Device\Include-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_STDPERIPH_DRIVER-o .\out\stm32f4xx_pwr.o --omf_browse .\out\stm32f4xx_pwr.crf --depend .\out\stm32f4xx_pwr.d)
+I (.\LIB\HEADER\stm32f4xx_pwr.h)(0x560FDB47)
+I (.\LIB\HEADER\stm32f4xx.h)(0x560FDB47)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cm4.h)(0x55D56D64)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54766380)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmInstr.h)(0x55D47368)
@@ -189,102 +199,19 @@ I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\cmsis_armcc.h)(0x55D5BA1A)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmFunc.h)(0x55D47368)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmSimd.h)(0x55D47368)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h)(0x55BF2646)
-I (.\LIB\HEADER\stm32f4xx_conf.h)(0x544B59DF)
-I (C:\Users\Predrag\Desktop\keil test\RTE\RTE_Components.h)(0x5484AFA2)
-I (.\LIB\HEADER\misc.h)(0x4EAA766F)
-I (.\LIB\HEADER\stm32f4xx_rcc.h)(0x4EAA766D)
-F (.\LIB\SOURCE\stm32f4xx_rcc.c)(0x4EAA766E)(-c --cpu Cortex-M4.fp -D__RTX -g -O0 --apcs=interwork -I.\SRC\HEADER -I.\LIB\HEADER-I "C:\Users\Predrag\Desktop\keil test\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Device\Include-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_STDPERIPH_DRIVER-o .\out\stm32f4xx_rcc.o --omf_browse .\out\stm32f4xx_rcc.crf --depend .\out\stm32f4xx_rcc.d)
-I (.\LIB\HEADER\stm32f4xx_rcc.h)(0x4EAA766D)
-I (.\LIB\HEADER\stm32f4xx.h)(0x4EAA766C)
-I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cm4.h)(0x55D56D64)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54766380)
-I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmInstr.h)(0x55D47368)
-I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\cmsis_armcc.h)(0x55D5BA1A)
-I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmFunc.h)(0x55D47368)
-I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmSimd.h)(0x55D47368)
-I (C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h)(0x55BF2646)
-I (.\LIB\HEADER\stm32f4xx_conf.h)(0x544B59DF)
-I (C:\Users\Predrag\Desktop\keil test\RTE\RTE_Components.h)(0x5484AFA2)
-I (.\LIB\HEADER\misc.h)(0x4EAA766F)
-F (.\LIB\SOURCE\stm32f4xx_rtc.c)(0x4EAA766E)(-c --cpu Cortex-M4.fp -D__RTX -g -O0 --apcs=interwork -I.\SRC\HEADER -I.\LIB\HEADER-I "C:\Users\Predrag\Desktop\keil test\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Device\Include-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_STDPERIPH_DRIVER-o .\out\stm32f4xx_rtc.o --omf_browse .\out\stm32f4xx_rtc.crf --depend .\out\stm32f4xx_rtc.d)
-I (.\LIB\HEADER\stm32f4xx_rtc.h)(0x4EAA766F)
-I (.\LIB\HEADER\stm32f4xx.h)(0x4EAA766C)
-I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cm4.h)(0x55D56D64)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54766380)
-I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmInstr.h)(0x55D47368)
-I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\cmsis_armcc.h)(0x55D5BA1A)
-I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmFunc.h)(0x55D47368)
-I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmSimd.h)(0x55D47368)
-I (C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h)(0x55BF2646)
-I (.\LIB\HEADER\stm32f4xx_conf.h)(0x544B59DF)
-I (C:\Users\Predrag\Desktop\keil test\RTE\RTE_Components.h)(0x5484AFA2)
-I (.\LIB\HEADER\misc.h)(0x4EAA766F)
-I (.\LIB\HEADER\stm32f4xx_rcc.h)(0x4EAA766D)
-F (.\LIB\SOURCE\stm32f4xx_spi.c)(0x4EAA766F)(-c --cpu Cortex-M4.fp -D__RTX -g -O0 --apcs=interwork -I.\SRC\HEADER -I.\LIB\HEADER-I "C:\Users\Predrag\Desktop\keil test\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Device\Include-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_STDPERIPH_DRIVER-o .\out\stm32f4xx_spi.o --omf_browse .\out\stm32f4xx_spi.crf --depend .\out\stm32f4xx_spi.d)
-I (.\LIB\HEADER\stm32f4xx_spi.h)(0x4EAA766E)
-I (.\LIB\HEADER\stm32f4xx.h)(0x4EAA766C)
-I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cm4.h)(0x55D56D64)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54766380)
-I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmInstr.h)(0x55D47368)
-I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\cmsis_armcc.h)(0x55D5BA1A)
-I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmFunc.h)(0x55D47368)
-I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmSimd.h)(0x55D47368)
-I (C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h)(0x55BF2646)
-I (.\LIB\HEADER\stm32f4xx_conf.h)(0x544B59DF)
-I (C:\Users\Predrag\Desktop\keil test\RTE\RTE_Components.h)(0x5484AFA2)
-I (.\LIB\HEADER\misc.h)(0x4EAA766F)
-I (.\LIB\HEADER\stm32f4xx_rcc.h)(0x4EAA766D)
-F (.\LIB\SOURCE\stm32f4xx_syscfg.c)(0x4EAA766F)(-c --cpu Cortex-M4.fp -D__RTX -g -O0 --apcs=interwork -I.\SRC\HEADER -I.\LIB\HEADER-I "C:\Users\Predrag\Desktop\keil test\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Device\Include-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_STDPERIPH_DRIVER-o .\out\stm32f4xx_syscfg.o --omf_browse .\out\stm32f4xx_syscfg.crf --depend .\out\stm32f4xx_syscfg.d)
-I (.\LIB\HEADER\stm32f4xx_syscfg.h)(0x4EAA766E)
-I (.\LIB\HEADER\stm32f4xx.h)(0x4EAA766C)
-I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cm4.h)(0x55D56D64)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54766380)
-I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmInstr.h)(0x55D47368)
-I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\cmsis_armcc.h)(0x55D5BA1A)
-I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmFunc.h)(0x55D47368)
-I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmSimd.h)(0x55D47368)
-I (C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h)(0x55BF2646)
-I (.\LIB\HEADER\stm32f4xx_conf.h)(0x544B59DF)
-I (C:\Users\Predrag\Desktop\keil test\RTE\RTE_Components.h)(0x5484AFA2)
-I (.\LIB\HEADER\misc.h)(0x4EAA766F)
-I (.\LIB\HEADER\stm32f4xx_rcc.h)(0x4EAA766D)
-F (.\LIB\SOURCE\stm32f4xx_tim.c)(0x4EAA766F)(-c --cpu Cortex-M4.fp -D__RTX -g -O0 --apcs=interwork -I.\SRC\HEADER -I.\LIB\HEADER-I "C:\Users\Predrag\Desktop\keil test\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Device\Include-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_STDPERIPH_DRIVER-o .\out\stm32f4xx_tim.o --omf_browse .\out\stm32f4xx_tim.crf --depend .\out\stm32f4xx_tim.d)
-I (.\LIB\HEADER\stm32f4xx_tim.h)(0x4EAA766D)
-I (.\LIB\HEADER\stm32f4xx.h)(0x4EAA766C)
-I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cm4.h)(0x55D56D64)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54766380)
-I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmInstr.h)(0x55D47368)
-I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\cmsis_armcc.h)(0x55D5BA1A)
-I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmFunc.h)(0x55D47368)
-I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmSimd.h)(0x55D47368)
-I (C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h)(0x55BF2646)
-I (.\LIB\HEADER\stm32f4xx_conf.h)(0x544B59DF)
-I (C:\Users\Predrag\Desktop\keil test\RTE\RTE_Components.h)(0x5484AFA2)
-I (.\LIB\HEADER\misc.h)(0x4EAA766F)
-I (.\LIB\HEADER\stm32f4xx_rcc.h)(0x4EAA766D)
-F (.\LIB\SOURCE\stm32f4xx_pwr.c)(0x4EAA766E)(-c --cpu Cortex-M4.fp -D__RTX -g -O0 --apcs=interwork -I.\SRC\HEADER -I.\LIB\HEADER-I "C:\Users\Predrag\Desktop\keil test\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Device\Include-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_STDPERIPH_DRIVER-o .\out\stm32f4xx_pwr.o --omf_browse .\out\stm32f4xx_pwr.crf --depend .\out\stm32f4xx_pwr.d)
-I (.\LIB\HEADER\stm32f4xx_pwr.h)(0x4EAA766E)
-I (.\LIB\HEADER\stm32f4xx.h)(0x4EAA766C)
-I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cm4.h)(0x55D56D64)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54766380)
-I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmInstr.h)(0x55D47368)
-I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\cmsis_armcc.h)(0x55D5BA1A)
-I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmFunc.h)(0x55D47368)
-I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmSimd.h)(0x55D47368)
-I (C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h)(0x55BF2646)
-I (.\LIB\HEADER\stm32f4xx_conf.h)(0x544B59DF)
-I (C:\Users\Predrag\Desktop\keil test\RTE\RTE_Components.h)(0x5484AFA2)
-I (.\LIB\HEADER\misc.h)(0x4EAA766F)
-I (.\LIB\HEADER\stm32f4xx_rcc.h)(0x4EAA766D)
+I (.\LIB\HEADER\stm32f4xx_conf.h)(0x560FDB47)
+I (C:\Users\Predrag\Copy\Projects\Tema d.o.o\1000-001-Display-za-inverter\RTE\RTE_Components.h)(0x560FDB47)
+I (.\LIB\HEADER\misc.h)(0x560FDB47)
+I (.\LIB\HEADER\stm32f4xx_rcc.h)(0x560FDB47)
 F (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\LIB\ARM\RTX_CM4.lib)(0x55DEB08E)()
-F (RTE\CMSIS\RTX_Conf_CM.c)(0x544CD0C0)(-c --cpu Cortex-M4.fp -D__RTX -g -O0 --apcs=interwork -I.\SRC\HEADER -I.\LIB\HEADER-I "C:\Users\Predrag\Desktop\keil test\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Device\Include-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_STDPERIPH_DRIVER-o .\out\rtx_conf_cm.o --omf_browse .\out\rtx_conf_cm.crf --depend .\out\rtx_conf_cm.d)
+F (RTE\CMSIS\RTX_Conf_CM.c)(0x560FE8B5)(-c --cpu Cortex-M4.fp -D__RTX -g -O0 --apcs=interwork -I.\SRC\HEADER -I.\LIB\HEADER-I "C:\Users\Predrag\Copy\Projects\Tema d.o.o\1000-001-Display-za-inverter\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Device\Include-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_STDPERIPH_DRIVER-o .\out\rtx_conf_cm.o --omf_browse .\out\rtx_conf_cm.crf --depend .\out\rtx_conf_cm.d)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC\cmsis_os.h)(0x55A5073A)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54766380)
 I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x54766380)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC\RTX_CM_lib.h)(0x556D8544)
-F (RTE\Device\STM32F407VG\startup_stm32f407xx.s)(0x55BF263C)(--cpu Cortex-M4.fp --pd "__RTX SETA 1" -g --apcs=interwork -I "C:\Users\Predrag\Desktop\keil test\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Device\Include--pd "__UVISION_VERSION SETA 514" --pd "_RTE_ SETA 1" --pd "STM32F407xx SETA 1"--list .\lst\startup_stm32f407xx.lst --xref -o .\out\startup_stm32f407xx.o --depend .\out\startup_stm32f407xx.d)
-F (RTE\Device\STM32F407VG\system_stm32f4xx.c)(0x55E57B7C)(-c --cpu Cortex-M4.fp -D__RTX -g -O0 --apcs=interwork -I.\SRC\HEADER -I.\LIB\HEADER-I "C:\Users\Predrag\Desktop\keil test\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Device\Include-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_STDPERIPH_DRIVER-o .\out\system_stm32f4xx.o --omf_browse .\out\system_stm32f4xx.crf --depend .\out\system_stm32f4xx.d)
-I (.\LIB\HEADER\stm32f4xx.h)(0x4EAA766C)
+F (RTE\Device\STM32F407VG\startup_stm32f407xx.s)(0x560FDB47)(--cpu Cortex-M4.fp --pd "__RTX SETA 1" -g --apcs=interwork -I "C:\Users\Predrag\Copy\Projects\Tema d.o.o\1000-001-Display-za-inverter\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Device\Include--pd "__UVISION_VERSION SETA 514" --pd "_RTE_ SETA 1" --pd "STM32F407xx SETA 1"--list .\lst\startup_stm32f407xx.lst --xref -o .\out\startup_stm32f407xx.o --depend .\out\startup_stm32f407xx.d)
+F (RTE\Device\STM32F407VG\system_stm32f4xx.c)(0x560FDB47)(-c --cpu Cortex-M4.fp -D__RTX -g -O0 --apcs=interwork -I.\SRC\HEADER -I.\LIB\HEADER-I "C:\Users\Predrag\Copy\Projects\Tema d.o.o\1000-001-Display-za-inverter\RTE"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Device\Include-D__UVISION_VERSION="514" -D_RTE_ -DSTM32F407xx -DUSE_STDPERIPH_DRIVER-o .\out\system_stm32f4xx.o --omf_browse .\out\system_stm32f4xx.crf --depend .\out\system_stm32f4xx.d)
+I (.\LIB\HEADER\stm32f4xx.h)(0x560FDB47)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cm4.h)(0x55D56D64)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54766380)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmInstr.h)(0x55D47368)
@@ -292,6 +219,6 @@ I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\cmsis_armcc.h)(0x55D5BA1A)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmFunc.h)(0x55D47368)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmSimd.h)(0x55D47368)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h)(0x55BF2646)
-I (.\LIB\HEADER\stm32f4xx_conf.h)(0x544B59DF)
-I (C:\Users\Predrag\Desktop\keil test\RTE\RTE_Components.h)(0x5484AFA2)
-I (.\LIB\HEADER\misc.h)(0x4EAA766F)
+I (.\LIB\HEADER\stm32f4xx_conf.h)(0x560FDB47)
+I (C:\Users\Predrag\Copy\Projects\Tema d.o.o\1000-001-Display-za-inverter\RTE\RTE_Components.h)(0x560FDB47)
+I (.\LIB\HEADER\misc.h)(0x560FDB47)

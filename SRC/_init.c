@@ -5,7 +5,7 @@ void RTX_Init(void const *arg) {
 	//osThreadDef(RTX_CANReceive, 		  osPriorityNormal, 1, 0);
 	//osThreadDef(RTX_CANSend, 				  osPriorityNormal, 1, 0);
 	//osThreadDef(RTX_TouchController,  osPriorityNormal, 1, 0);
-	osThreadDef(RTX_ScreenController, osPriorityNormal, 1, 0);
+	//osThreadDef(RTX_ScreenController, osPriorityNormal, 1, 0);
 	//osThreadDef(RTX_Watchdog, 			  osPriorityNormal, 1, 0);
 	
 	Timer1ms_Init();	
@@ -24,7 +24,7 @@ void RTX_Init(void const *arg) {
 	//osThreadCreate(osThread(RTX_CANReceive), 			 NULL);
 	//osThreadCreate(osThread(RTX_CANSend), 				 NULL);
 	//osThreadCreate(osThread(RTX_TouchController),  NULL);
-	osThreadCreate(osThread(RTX_ScreenController), NULL);
+	//osThreadCreate(osThread(RTX_ScreenController), NULL);
 	//osThreadCreate(osThread(RTX_Watchdog), 				 NULL);
 	
 	osThreadTerminate(osThreadGetId());

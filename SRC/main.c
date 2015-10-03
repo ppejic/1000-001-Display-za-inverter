@@ -1,12 +1,13 @@
-#include "main.h"
+#include "stm32f4xx.h"
+#include "cmsis_os.h"
+#include "ft800_driver.h"
 
 int main() {
-	
-	osThreadDef(RTX_Init, osPriorityNormal, 1, 0);
-	
+	osThreadDef(__rtx_ft800_task, 	  osPriorityNormal, 1, 0);
+		
 	osKernelInitialize();
 	
-	osThreadCreate(osThread(RTX_Init), NULL);
+	osThreadCreate(osThread(__rtx_ft800_task), NULL);
 	
 	osKernelStart();
 	

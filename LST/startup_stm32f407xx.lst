@@ -882,14 +882,14 @@ ARM Macro Assembler    Page 14
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
 erwork --depend=.\out\startup_stm32f407xx.d -o.\out\startup_stm32f407xx.o -I"C:
-\Users\Predrag\Desktop\keil test\RTE" -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMS
-IS\Include -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\RTOS\RTX\INC -IC:\Keil_v
-5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0 -IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.
-6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include -IC:\Keil_v5\ARM\PACK\Keil\STM32F
-4xx_DFP\2.6.0\Device\Include --predefine="__RTX SETA 1" --predefine="__UVISION_
-VERSION SETA 514" --predefine="_RTE_ SETA 1" --predefine="STM32F407xx SETA 1" -
--list=.\lst\startup_stm32f407xx.lst RTE\Device\STM32F407VG\startup_stm32f407xx.
-s
+\Users\Predrag\Copy\Projects\Tema d.o.o\1000-001-Display-za-inverter\RTE" -IC:\
+Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\
+4.4.0\CMSIS\RTOS\RTX\INC -IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0 -IC:\Ke
+il_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Inclu
+de -IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Device\Include --predefine="_
+_RTX SETA 1" --predefine="__UVISION_VERSION SETA 514" --predefine="_RTE_ SETA 1
+" --predefine="STM32F407xx SETA 1" --list=.\lst\startup_stm32f407xx.lst RTE\Dev
+ice\STM32F407VG\startup_stm32f407xx.s
 
 
 

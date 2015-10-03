@@ -1,12 +1,8 @@
 --cpu Cortex-M4.fp
 ".\out\main.o"
-".\out\_init.o"
 ".\out\events.o"
 ".\out\_watchdog.o"
-".\out\_ft800.o"
-".\out\_lcd_controller.o"
-".\out\_canreceive.o"
-".\out\_cansend.o"
+".\out\ft800_driver.o"
 ".\out\misc.o"
 ".\out\stm32f4xx_exti.o"
 ".\out\stm32f4xx_gpio.o"
