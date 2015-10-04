@@ -404,6 +404,10 @@ void FT800_AdminVehicleStatusScreen(void);
 void FT800_AdminFaultLogScreen(void);
 void FT800_AdminTestScreen(void);
 
+uint32_t get_cmd_offset(void);
+uint32_t increase_cmd_offset(uint32_t command_size);
+void set_cmd_offset(uint32_t new_cmd_offset_value);
+
 extern void __rtx_ft800_task(void const *arg);
 /************************ VARIABLES ************************/
 extern uint32_t ramDisplayList;									// Set beginning of display list memory 
