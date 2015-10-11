@@ -98,7 +98,7 @@ lcd_state_header_t* login_process_input(lcd_state_header_t* lcd_state) {
 	return lcd_state;
 }
 
-void login_update_frame(q_can_data_item_t* q_can_data) {
+void login_update_frame(system_state_t* q_can_data) {
 	uint32_t cmd_buffer_read = 0, cmd_buffer_write = 0;
 	uint32_t tagval = 0;
 	uint16_t x = 0;

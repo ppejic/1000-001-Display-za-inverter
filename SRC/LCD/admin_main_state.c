@@ -1,6 +1,8 @@
 #include "stm32f4xx.h"
 #include "cmsis_os.h"
 #include "ft800_driver.h"
+#include "stdio.h"
+#include "stm32f4xx_rtc.h"
 
 DEFINE_LCD_STATE(admin_main);
 
@@ -26,13 +28,14 @@ lcd_state_header_t* admin_main_process_input(lcd_state_header_t* lcd_state) {
 	return lcd_state;
 }
 
-void admin_main_update_frame(q_can_data_item_t* q_can_data) {
+void admin_main_update_frame(system_state_t* q_can_data) {
 	uint32_t tagval = 0;
 	uint32_t cmd_buffer_read = 0, cmd_buffer_write = 0;
 	uint16_t x = 0, y = 0;
 	char num[1];
 	char batteryCurrent[5];
 	char motorACCurrent[5];
+  RTC_TimeTypeDef RTC_TimeStructure;
 	
 	static uint16_t count5s = 0;
 		
@@ -65,23 +68,23 @@ void admin_main_update_frame(q_can_data_item_t* q_can_data) {
 	FT800_CMD_Button(266, 0, 214, 31, 29, 0, "              Menu");
 	
 	/************************* DRAW SOC STATUS BAR ************************************/
-	FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), DL_COLOR_RGB | GREEN); // Indicate to draw a point (dot)
-	increase_cmd_offset( 4);	
-	
-	FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (DL_BEGIN | RECTS)); // Indicate to draw a point (dot)
-	increase_cmd_offset( 4);	
-	
-	FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(0*16,(uint16_t)(136-100/*((float)inputData.batterySOC/100)*/*136)*16)); // Indicate to draw a point (dot)
-	increase_cmd_offset( 4);	
-	
-	FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(240*16, 136*16)); // Indicate to draw a point (dot)
-	increase_cmd_offset( 4);
-	
-	FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), DL_END); // Indicate to draw a point (dot)
-	increase_cmd_offset( 4);
-	
-	FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), DL_COLOR_RGB | WHITE); // Indicate to draw a point (dot)
-	increase_cmd_offset( 4);	
+//	FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), DL_COLOR_RGB | GREEN); // Indicate to draw a point (dot)
+//	increase_cmd_offset( 4);	
+//	
+//	FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (DL_BEGIN | RECTS)); // Indicate to draw a point (dot)
+//	increase_cmd_offset( 4);	
+//	
+//	FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(0*16,(uint16_t)(136-100/*((float)inputData.batterySOC/100)*/*136)*16)); // Indicate to draw a point (dot)
+//	increase_cmd_offset( 4);	
+//	
+//	FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(240*16, 136*16)); // Indicate to draw a point (dot)
+//	increase_cmd_offset( 4);
+//	
+//	FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), DL_END); // Indicate to draw a point (dot)
+//	increase_cmd_offset( 4);
+//	
+//	FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), DL_COLOR_RGB | WHITE); // Indicate to draw a point (dot)
+//	increase_cmd_offset( 4);	
 			
 	/*************************************************************************/
 	/***************** Nacrtaj najvecu kruznicu ******************************/
@@ -465,97 +468,137 @@ void admin_main_update_frame(q_can_data_item_t* q_can_data) {
 	/********************** BATTERY CURRENT **************************/
 	
 	FT800_CMD_Text(1, 140, 26, 0, "Battery Current");
-//	if(inputData.batteryCurrent < 100 && inputData.batteryCurrent >= 10) {
-//		snprintf(num, 2, "%d", inputData.batteryCurrent);
-//		strcpy(batteryCurrent, num);
-//		strcat(batteryCurrent, ".");
-//		
-//		snprintf(num, 2, "%d", inputData.batteryCurrent%10);
-//		strcat(batteryCurrent, num);
-//		strcat(batteryCurrent, " A\0");
-//		FT800_CMD_Text(5, 157, 31, 0, batteryCurrent);
-//	}
-//	else if(inputData.batteryCurrent > 0 && inputData.batteryCurrent <= 10) {
-//		strcpy(batteryCurrent, "0.");		
-//		snprintf(num, 2, "%d", inputData.batteryCurrent%10);
-//		strcat(batteryCurrent, num);
-//		
-//		strcat(batteryCurrent, " A\0");
-//		FT800_CMD_Text(5, 157, 31, 0, batteryCurrent);
-//	}
-//	else {
-//		FT800_CMD_Text(5, 157, 31, 0, "9.9 A");
-//	}
+	if(g_system_state.battery_current < 10000 && g_system_state.battery_current >= 1000) { 
+		char num[2];
+		char num2[1];
+		char batteryCurrent[7];
+		
+		snprintf(num, 4, "%d", g_system_state.battery_current/10);
+		strcpy(batteryCurrent, num);
+		strcat(batteryCurrent, ".");
+		snprintf(num2, 2, "%d", g_system_state.battery_current%10);
+		strcat(batteryCurrent, num2);
+		strcat(batteryCurrent, " A");
+		
+		FT800_CMD_Text(5, 165, 30, 0, batteryCurrent);
+	}else if(g_system_state.battery_current < 1000 && g_system_state.battery_current >= 100) { 
+		char num[2];
+		char num2[1];
+		char batteryCurrent[6];
+		
+		snprintf(num, 3, "%d", g_system_state.battery_current/10);
+		strcpy(batteryCurrent, num);
+		strcat(batteryCurrent, ".");
+		snprintf(num2, 2, "%d", g_system_state.battery_current%10);
+		strcat(batteryCurrent, num2);
+		strcat(batteryCurrent, " A");
+		
+		FT800_CMD_Text(5, 165, 30, 0, batteryCurrent);
+	}else if(g_system_state.battery_current < 100 && g_system_state.battery_current >= 10) {
+		snprintf(num, 2, "%d", g_system_state.battery_current);
+		strcpy(batteryCurrent, num);
+		strcat(batteryCurrent, ".");
+		
+		snprintf(num, 2, "%d", g_system_state.battery_current%10);
+		strcat(batteryCurrent, num);
+		strcat(batteryCurrent, " A");
+		FT800_CMD_Text(5, 157, 31, 0, batteryCurrent);
+	}
+	else if(g_system_state.battery_current > 0 && g_system_state.battery_current <= 10) {
+		strcpy(batteryCurrent, "0.");		
+		snprintf(num, 2, "%d", g_system_state.battery_current%10);
+		strcat(batteryCurrent, num);
+		
+		strcat(batteryCurrent, " A");
+		FT800_CMD_Text(5, 157, 31, 0, batteryCurrent);
+	}
+	else {
+		FT800_CMD_Text(5, 157, 30, 0, "NA/N");
+	}
 	
-	/********************** BATTERY VOLTS **************************/
-	FT800_CMD_Text(13, 208, 26, 0, "Battery Volts");
-//	if(inputData.batteryVoltage >= 100 && inputData.batteryVoltage < 1000) {
-//		char num[2];
-//		char num2[1];
-//		char batteryVoltage[6];
-//		
-//		snprintf(num, 3, "%d", inputData.batteryVoltage/10);
-//		strcpy(batteryVoltage, num);
-//		strcat(batteryVoltage, ".");
-//		snprintf(num2, 2, "%d", inputData.batteryVoltage%10);
-//		strcat(batteryVoltage, num2);
-//		strcat(batteryVoltage, " V");
-//		
-//		FT800_CMD_Text(5, 226, 31, 0, batteryVoltage);
-//	}
-//	else if(inputData.batteryVoltage >= 10 && inputData.batteryVoltage < 100){
-//		char num[2];
-//		char num2[1];
-//		char batteryVoltage[5];
-//		
-//		snprintf(num, 2, "%d", inputData.batteryVoltage/10);
-//		strcpy(batteryVoltage, num);
-//		strcat(batteryVoltage, ".");
-//		snprintf(num2, 2, "%d", inputData.batteryVoltage%10);
-//		strcat(batteryVoltage, num2);
-//		strcat(batteryVoltage, " V");
-//		
-//		FT800_CMD_Text(5, 226, 31, 0, batteryVoltage);
-//	}
-//	else if(inputData.batteryVoltage > 0 && inputData.batteryVoltage < 10) {
-//		char num2[1];
-//		char batteryVoltage[5];
-//		
-//		strcpy(batteryVoltage, "0.");
-//		snprintf(num2, 2, "%d", inputData.batteryVoltage%10);
-//		strcat(batteryVoltage, num2);
-//		strcat(batteryVoltage, " V");
-//		
-//		FT800_CMD_Text(5, 226, 31, 0, batteryVoltage);
-//	}
-//	else {
-//		FT800_CMD_Text(5, 226, 31, 0, "78.4 V");
-//	}
+	/********************** BATTERY VOLTAGE **************************/
+	FT800_CMD_Text(13, 208, 26, 0, "Battery Voltage");
+	if(g_system_state.battery_voltage >= 1000 && g_system_state.battery_voltage < 10000) {
+		char num[3];
+		char num2[1];
+		char batteryVoltage[7];
+		
+		snprintf(num, 4, "%d", g_system_state.battery_voltage/10);
+		strcpy(batteryVoltage, num);
+		strcat(batteryVoltage, ".");
+		snprintf(num2, 2, "%d", g_system_state.battery_voltage%10);
+		strcat(batteryVoltage, num2);
+		strcat(batteryVoltage, " V");
+		
+		FT800_CMD_Text(5, 234, 30, 0, batteryVoltage);
+	}
+	else if(g_system_state.battery_voltage >= 100 && g_system_state.battery_voltage < 1000) {
+		char num[2];
+		char num2[1];
+		char batteryVoltage[6];
+		
+		snprintf(num, 3, "%d", g_system_state.battery_voltage/10);
+		strcpy(batteryVoltage, num);
+		strcat(batteryVoltage, ".");
+		snprintf(num2, 2, "%d", g_system_state.battery_voltage%10);
+		strcat(batteryVoltage, num2);
+		strcat(batteryVoltage, " V");
+		
+		FT800_CMD_Text(5, 226, 31, 0, batteryVoltage);
+	}
+	else if(g_system_state.battery_voltage >= 10 && g_system_state.battery_voltage < 100){
+		char num[2];
+		char num2[1];
+		char batteryVoltage[5];
+		
+		snprintf(num, 2, "%d", g_system_state.battery_voltage/10);
+		strcpy(batteryVoltage, num);
+		strcat(batteryVoltage, ".");
+		snprintf(num2, 2, "%d", g_system_state.battery_voltage%10);
+		strcat(batteryVoltage, num2);
+		strcat(batteryVoltage, " V");
+		
+		FT800_CMD_Text(5, 226, 31, 0, batteryVoltage);
+	}
+	else if(g_system_state.battery_voltage > 0 && g_system_state.battery_voltage < 10) {
+		char num2[1];
+		char batteryVoltage[5];
+		
+		strcpy(batteryVoltage, "0.");
+		snprintf(num2, 2, "%d", g_system_state.battery_voltage%10);
+		strcat(batteryVoltage, num2);
+		strcat(batteryVoltage, " V");
+		
+		FT800_CMD_Text(5, 226, 31, 0, batteryVoltage);
+	}
+	else {
+		FT800_CMD_Text(5, 226, 31, 0, "NA/N");
+	}
 		
 	/********************** AC MOTOR CURRENT **************************/
 	FT800_CMD_Text(404, 140, 26, 0, "AC Motor");	
 	FT800_CMD_Text(410, 152, 26, 0, "Current");	
-//	if(inputData.motorACCurrent < 100 && inputData.motorACCurrent >= 10) {		
-//		snprintf(num, 2, "%d", inputData.motorACCurrent/10);
-//		strcpy(motorACCurrent, num);
-//		strcat(motorACCurrent, ".");
-//		
-//		snprintf(num, 2, "%d", inputData.motorACCurrent%10);
-//		strcat(motorACCurrent, num);
-//		strcat(motorACCurrent, " A\0");
-//		FT800_CMD_Text(409, 167, 30, 0, motorACCurrent);
-//	}
-//	else if(inputData.motorACCurrent > 0 && inputData.motorACCurrent < 10) {
-//		strcpy(motorACCurrent, "0.");
-//		
-//		snprintf(num, 2, "%d", inputData.motorACCurrent%10);
-//		strcat(motorACCurrent, num);
-//		strcat(motorACCurrent, " A\0");
-//		FT800_CMD_Text(409, 167, 30, 0, motorACCurrent);
-//	}
-//	else {
-//		FT800_CMD_Text(409, 167, 30, 0, "9.9 A");
-//	}
+	if(g_system_state.motor_ac_current < 100 && g_system_state.motor_ac_current >= 10) {		
+		snprintf(num, 2, "%d", g_system_state.motor_ac_current/10);
+		strcpy(motorACCurrent, num);
+		strcat(motorACCurrent, ".");
+		
+		snprintf(num, 2, "%d", g_system_state.motor_ac_current%10);
+		strcat(motorACCurrent, num);
+		strcat(motorACCurrent, " A\0");
+		FT800_CMD_Text(409, 167, 30, 0, motorACCurrent);
+	}
+	else if(g_system_state.motor_ac_current > 0 && g_system_state.motor_ac_current < 10) {
+		strcpy(motorACCurrent, "0.");
+		
+		snprintf(num, 2, "%d", g_system_state.motor_ac_current%10);
+		strcat(motorACCurrent, num);
+		strcat(motorACCurrent, " A\0");
+		FT800_CMD_Text(409, 167, 30, 0, motorACCurrent);
+	}
+	else {
+		FT800_CMD_Text(409, 167, 30, 0, "9.9 A");
+	}
 		
 	/********************** DATETIME **************************/
 //	if(strlen(inputData.datetime) < 23) {
@@ -564,82 +607,92 @@ void admin_main_update_frame(q_can_data_item_t* q_can_data) {
 //	else{
 //		FT800_CMD_Text(350, 244, 26, 0, "Datetime error!");
 //	}
+	RTC_GetTime(RTC_Format_BIN, &RTC_TimeStructure);
+	char time[6];
+	if(RTC_TimeStructure.RTC_Seconds % 2) {
+		snprintf(time, 6, "%02d:%02d", RTC_TimeStructure.RTC_Hours, RTC_TimeStructure.RTC_Minutes);
+	}
+	else {
+		snprintf(time, 6, "%02d %02d", RTC_TimeStructure.RTC_Hours, RTC_TimeStructure.RTC_Minutes);
+	}
+	FT800_CMD_Text(480, 244, 29, OPT_RIGHTX, time);
 
 	/********************** SPEED(RPM) **************************/
-//	if((inputData.speed < 2000) && (inputData.speed > 999)) {
-//		char speed[4];
-//		snprintf(speed, 5, "%d", inputData.speed);
-//		FT800_CMD_Text(194, 90, 31, 0, speed);
-//	}
-//	else if(inputData.speed > 99 && inputData.speed < 1000) {
-//		char speed[3];
-//		snprintf(speed, 4, "%d", inputData.speed);
-//		FT800_CMD_Text(210, 90, 31, 0, speed);
-//	}
-//	else if(inputData.speed > 0 && inputData.speed < 100) {
-//		char speed[2];
-//		snprintf(speed, 3, "%d", inputData.speed);
-//		FT800_CMD_Text(240, 90, 31, 0, speed);
-//	}
-//  else {
-//		FT800_CMD_Text(194, 90, 31, 0, "2000");
-//	}	
+	if((g_system_state.speed < 5000) && (g_system_state.speed > 999)) {
+		char speed[4];
+		snprintf(speed, 5, "%d", g_system_state.speed);
+		FT800_CMD_Text(194, 90, 31, 0, speed);
+	}
+	else if(g_system_state.speed > 99 && g_system_state.speed < 1000) {
+		char speed[3];
+		snprintf(speed, 4, "%d", g_system_state.speed);
+		FT800_CMD_Text(210, 90, 31, 0, speed);
+	}
+	else if(g_system_state.speed > 0 && g_system_state.speed < 100) {
+		char speed[2];
+		snprintf(speed, 3, "%d", g_system_state.speed);
+		FT800_CMD_Text(240, 90, 31, 0, speed);
+	}
+  else {
+		FT800_CMD_Text(194, 90, 31, 0, "2000");
+	}	
 
 	
 	/********************** BATTERY SOC **************************/
-//	if(inputData.batterySOC <= 100) {
-//		char num[1];
-//		char battery[4];
-//		
-//		snprintf(num, 4, "%d", inputData.batterySOC);
-//		strcpy(battery, num);
-//		strcat(battery, "%");
-//		
-//		FT800_CMD_Text(25, 50, 29, 0, battery);
-//	}
-//	else {
-//		FT800_CMD_Text(25, 50, 29, 0, "100%");
-//	}
+	FT800_CMD_Text(15, 5, 26, 0, "Battery SOC");
+	if(g_system_state.battery_soc <= 100) {
+		char num[1];
+		char battery[4];
+		
+		snprintf(num, 4, "%d", g_system_state.battery_soc);
+		strcpy(battery, num);
+		strcat(battery, "%");
+		
+		FT800_CMD_Text(25, 50, 30, 0, battery);
+	}
+	else {
+		FT800_CMD_Text(25, 50, 30, 0, "NA/N");
+	}
 		
 	/********************** GEAR MODE **************************/
-//	switch(inputData.gearMode) {
-//		case 'D': {
-//			FT800_CMD_Text(194, 139, 31, 0, "D");	
-//	
-//			FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), COLOR_RGB(67,67,67)); // Indicate to draw a point (dot)
-//			increase_cmd_offset( 4);
-//			
-//			FT800_CMD_Text(229, 139, 31, 0, "N");			
-//			FT800_CMD_Text(264, 139, 31, 0, "R");			
-//		} break;
-//		case 'N': {	
-//			FT800_CMD_Text(229, 139, 31, 0, "N");
-//			
-//			FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), COLOR_RGB(67,67,67)); // Indicate to draw a point (dot)
-//			increase_cmd_offset( 4);
-//			
-//			FT800_CMD_Text(194, 139, 31, 0, "D");			
-//			FT800_CMD_Text(264, 139, 31, 0, "R");			
-//		} break;
-//		case 'R': {
-//						
-//			FT800_CMD_Text(264, 139, 31, 0, "R");
-//			
-//			FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), COLOR_RGB(67,67,67)); // Indicate to draw a point (dot)
-//			increase_cmd_offset( 4);
-//			
-//			FT800_CMD_Text(229, 139, 31, 0, "N");
-//			FT800_CMD_Text(194, 139, 31, 0, "D");			
-//		} break;
-//		default: {
-//			FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), COLOR_RGB(67,67,67)); // Indicate to draw a point (dot)
-//			increase_cmd_offset( 4);
-//			
-//			FT800_CMD_Text(229, 139, 31, 0, "N");
-//			FT800_CMD_Text(194, 139, 31, 0, "D");
-//			FT800_CMD_Text(264, 139, 31, 0, "R");
-//		}
-//	}
+	switch(g_system_state.gear_mode) {
+		case 'D': {
+			FT800_CMD_Text(194, 139, 31, 0, "D");	
+	
+			FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), COLOR_RGB(67,67,67)); // Indicate to draw a point (dot)
+			increase_cmd_offset( 4);
+			
+			FT800_CMD_Text(229, 139, 31, 0, "N");			
+			FT800_CMD_Text(264, 139, 31, 0, "R");			
+		} break;
+		case 'N': {	
+			FT800_CMD_Text(229, 139, 31, 0, "N");
+			
+			FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), COLOR_RGB(67,67,67)); // Indicate to draw a point (dot)
+			increase_cmd_offset( 4);
+			
+			FT800_CMD_Text(194, 139, 31, 0, "D");			
+			FT800_CMD_Text(264, 139, 31, 0, "R");			
+		} break;
+		case 'R': {
+						
+			FT800_CMD_Text(264, 139, 31, 0, "R");
+			
+			FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), COLOR_RGB(67,67,67)); // Indicate to draw a point (dot)
+			increase_cmd_offset( 4);
+			
+			FT800_CMD_Text(229, 139, 31, 0, "N");
+			FT800_CMD_Text(194, 139, 31, 0, "D");			
+		} break;
+		default: {
+			FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), COLOR_RGB(67,67,67)); // Indicate to draw a point (dot)
+			increase_cmd_offset( 4);
+			
+			FT800_CMD_Text(229, 139, 31, 0, "N");
+			FT800_CMD_Text(194, 139, 31, 0, "D");
+			FT800_CMD_Text(264, 139, 31, 0, "R");
+		}
+	}
 	
 	
 	FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), COLOR_RGB(255,80,0)); // Indicate to draw a point (dot)

@@ -8,6 +8,8 @@
 #include "stm32f4xx_pwr.h"
 #include "real_time_clock.h"
 
+system_state_t g_system_state;
+
 osMessageQId q_can;
 osMessageQDef(q_can, Q_CAN_SIZE, q_can_data_item_t);
 
@@ -15,13 +17,12 @@ osPoolId q_can_pool;
 osPoolDef(q_can_pool, Q_CAN_SIZE, q_can_data_item_t);
 
 int main() {
-	uint32_t status;
 	
 	rtc_init();
 	
 	osThreadDef(__rtx_ft800_task, 	  osPriorityNormal, 1, 0);
 	osThreadDef(__rtx_can_task, 	    osPriorityNormal, 1, 0);
-		
+	
 	osKernelInitialize();
 	
 	q_can 		 = osMessageCreate(osMessageQ(q_can), NULL);

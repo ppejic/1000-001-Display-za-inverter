@@ -172,34 +172,17 @@ static void __ft800_task_init() {
 
 void __rtx_ft800_task(void const *arg) {
 	osEvent event;
-	q_can_data_item_t *item;
 	static lcd_state_header_t* state;
 	
 	//Initialization of __rtx_ft800_task
 	__ft800_task_init();
-	state = main_state();
+	state = admin_main_state();
 	
 	while(1) {
-		//admin_fault_details_state();
-		//FT800_VehicleStatusScreen();
-		//admin_fault_log_state();
-		//main_state();
-		//admin_menu_state();
-		//admin_vehicle_status_state();
-		//login_state();
-		//main_state();	
-//			event = osMessageGet(q_can, osWaitForever);
-//			if(event.status == osEventMessage) {
-//				item = event.value.p;
-//				if(item) {
-//					__NOP();
-//				}
-//				osPoolFree(q_can_pool, item);
-//			}
 		state = state->process_input(state);
-		state->update_frame(item);
+		state->update_frame(&g_system_state);
 		
-		osDelay(10);
+		osDelay(20);		
 	 }
 }
 

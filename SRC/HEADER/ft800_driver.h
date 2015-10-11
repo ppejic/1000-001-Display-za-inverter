@@ -386,13 +386,13 @@ typedef struct lcd_state_header* lcd_state_header_ptr;
 
 typedef struct lcd_state_header {
 	lcd_state_header_ptr (*process_input)(lcd_state_header_ptr);
-	void (*update_frame)(q_can_data_item_t*);
+	void (*update_frame)(system_state_t*);
 } lcd_state_header_t;
 
 
 #define DECLARE_LCD_STATE(NAME) \
 	lcd_state_header_t* NAME##_process_input(lcd_state_header_t* lcd_state); 				\
-	void NAME##_update_frame(q_can_data_item_t* q_can_data); 												\
+	void NAME##_update_frame(system_state_t* q_can_data); 												\
 	lcd_state_header_t* NAME##_state();																					
 	
 #define DEFINE_LCD_STATE(NAME)																									\

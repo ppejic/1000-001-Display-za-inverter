@@ -9,6 +9,22 @@
 
 /*********************************STRUCTURES****************************************/
 typedef struct {
+	uint8_t  battery_soc;
+	uint16_t battery_current;
+	uint16_t battery_voltage;
+	uint8_t  motor_ac_current;
+	uint16_t motor_voltage;
+	uint16_t motor_current;
+	uint16_t motor_rpm;
+	int16_t  motor_temperature;
+	uint16_t motor_torque;	
+	uint16_t speed;
+	uint8_t  gear_mode;
+	uint16_t cap_voltage;
+	int16_t  cont_temperature;
+} system_state_t;
+
+typedef struct {
 	uint16_t battery_voltage;
 	uint8_t  battery_current;
 	char     gear_mode;
@@ -21,7 +37,6 @@ typedef struct {
 	uint16_t motor_torque;	
 } admin_vehicle_status_data_t;
 
-
 typedef union {
 	admin_vehicle_status_data_t admin_vehicle_status_data;
 } q_can_data_item_t;
@@ -29,8 +44,9 @@ typedef union {
 /******************************GLOBAL VARIABLES*************************************/
 
 /******************************EXTERN VARIABLES*************************************/
-extern osMessageQId q_can;
-extern osPoolId 	  q_can_pool;
+extern osMessageQId 		 q_can;
+extern osPoolId 	  		 q_can_pool;
+extern system_state_t    g_system_state;
 /****************************FUNCTION PROTOTYPES************************************/
 
 #endif

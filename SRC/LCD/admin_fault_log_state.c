@@ -11,7 +11,7 @@ lcd_state_header_t* admin_fault_log_process_input(lcd_state_header_t* lcd_state)
 	return lcd_state;
 }
 
-void admin_fault_log_update_frame(q_can_data_item_t* q_can_data) {
+void admin_fault_log_update_frame(system_state_t* q_can_data) {
 	uint32_t cmd_buffer_read = 0, cmd_buffer_write = 0;
 	uint8_t i = 0;
 		
