@@ -405,13 +405,16 @@ typedef struct lcd_state_header {
 		return &state;																															\
 	}
 
-DECLARE_LCD_STATE(admin_fault_details)
-DECLARE_LCD_STATE(admin_fault_log);
+//DECLARE_LCD_STATE(admin_fault_details)
+//DECLARE_LCD_STATE(admin_fault_log);
 DECLARE_LCD_STATE(admin_menu);
-DECLARE_LCD_STATE(admin_main);
-DECLARE_LCD_STATE(admin_vehicle_status);
-DECLARE_LCD_STATE(login);
-DECLARE_LCD_STATE(main);
+//DECLARE_LCD_STATE(admin_main);
+//DECLARE_LCD_STATE(admin_vehicle_status);
+DECLARE_LCD_STATE(login)
+//DECLARE_LCD_STATE(main);
+//lcd_state_header_t* login_process_input(lcd_state_header_t* lcd_state); 				\
+//void login_update_frame(q_can_data_item_t* q_can_data); 												\
+//lcd_state_header_t* login_state(void);
 	
 /************************ FUNCTIONS ************************/
 void FT800_Cmd_Write(uint8_t ftCommand);

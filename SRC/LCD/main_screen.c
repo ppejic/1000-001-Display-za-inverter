@@ -2,16 +2,54 @@
 #include "cmsis_os.h"
 #include "ft800_driver.h"
 
-void main_state(void) {
-	uint32_t tagval = 0;
+DEFINE_LCD_STATE(main);
+
+lcd_state_header_t* main_process_input(lcd_state_header_t* lcd_state) {
+	uint32_t tagval;
+	uint16_t x,y;
+	static uint16_t count5s = 0;
+	  
+	tagval = FT800_Mem_Read32(REG_TOUCH_DIRECT_XY);
+	if((uint32_t)(tagval & (1UL << 31)) == 0)
+	{
+		y = tagval & 0x3ff;
+		x = (tagval >> 16) & 0x3ff;
+		
+		if(x > CONVERTCOORDINATES_X(266) && y > CONVERTCOORDINATES_Y(270-31))
+		{
+			//event = EV_USERFAULTLOG;
+			return admin_fault_log_state();
+			__NOP();
+		}
+		else {
+			count5s++;
+			if(count5s >= 10) {
+				//event = EV_ADMINMODE;
+				count5s = 0;
+				__NOP();
+				return login_state();
+			}
+		}		
+	}
+	else {
+		count5s = 0;
+	}
+	
+	return lcd_state;
+}
+
+void main_update_frame(q_can_data_item_t* q_can_data) {
 	uint32_t cmd_buffer_read = 0, cmd_buffer_write = 0;
-	uint16_t x = 0, y = 0;
+	uint32_t tagval = 0;
+	uint16_t x = 0;
+	uint16_t y = 0;
 	char num[1];
 	char batteryCurrent[5];
 	char motorACCurrent[5];
 	
 	static uint16_t count5s = 0;
-		
+	//event = EV_NONE;
+	
 	/************************* SCREEN INIT ************************************/
 	do
 	{
@@ -19,7 +57,7 @@ void main_state(void) {
 		cmd_buffer_write = FT800_Mem_Read16(REG_CMD_WRITE); 				// Read the graphics processor write pointer
 	}while (cmd_buffer_write != cmd_buffer_read);									// Wait until the two registers match
 
-	set_cmd_offset(cmd_buffer_write);														// The new starting point the first location after the last command
+	set_cmd_offset(cmd_buffer_write);															// The new starting point the first location after the last command
 		
 	tagval =  FT800_Mem_Read32(REG_ID);
 	
@@ -36,28 +74,7 @@ void main_state(void) {
 																											// Attributes are the color, stencil and tag buffers
 	increase_cmd_offset( 4);								// Update the command pointer
 
-	/************************* TOUCH ENGINE ************************************/
-	tagval = FT800_Mem_Read32(REG_TOUCH_DIRECT_XY);
-//	if((uint32_t)(tagval & (1UL << 31)) == 0)
-//	{
-//		y = tagval & 0x3ff;
-//		x = (tagval >> 16) & 0x3ff;
-//		
-//		if(x > CONVERTCOORDINATES_X(266) && y > CONVERTCOORDINATES_Y(270-31))
-//		{
-//			//event = EV_USERFAULTLOG;
-//		}
-//		else {
-//			count5s++;
-//			if(count5s >= 40) {
-//				//event = EV_ADMINMODE;
-//				count5s = 0;
-//			}
-//		}		
-//	}
-//	else {
-//		count5s = 0;
-//	}
+
 	
 	/************************* LOG BUTTON ************************************/
 	FT800_CMD_Button(266, 0, 214, 31, 29, 0, "               Log");
@@ -69,8 +86,8 @@ void main_state(void) {
 	FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (DL_BEGIN | RECTS)); // Indicate to draw a point (dot)
 	increase_cmd_offset( 4);	
 	
-	FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(0*16,(uint16_t)(136-100/*((float)inputData.batterySOC/100)*/*136)*16)); // Indicate to draw a point (dot)
-	increase_cmd_offset( 4);	
+//	FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(0*16,(uint16_t)(136-((float)inputData.batterySOC/100)*136)*16)); // Indicate to draw a point (dot)
+//	increase_cmd_offset( 4);	
 	
 	FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(240*16, 136*16)); // Indicate to draw a point (dot)
 	increase_cmd_offset( 4);

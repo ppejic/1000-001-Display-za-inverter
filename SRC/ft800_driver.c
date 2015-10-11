@@ -5,7 +5,11 @@
 #include "cmsis_os.h"
 #include "admin_fault_details_state.h"
 #include "admin_fault_log_state.h"
+#include "admin_main_state.h"
+#include "admin_menu_state.h"
+#include "admin_vehicle_status_state.h"
 #include "main_state.h"
+#include "util.h"
 
 uint32_t ramDisplayList;		
 uint32_t ramCommandBuffer;
@@ -18,7 +22,6 @@ static uint8_t  SPI_Send(uint8_t data);
 uint32_t get_cmd_offset(void);
 uint32_t increase_cmd_offset(uint32_t command_size);
 void set_cmd_offset(uint32_t new_cmd_offset_value);
-
 
 static void periph_gpio_init() {
 	
@@ -168,15 +171,35 @@ static void __ft800_task_init() {
 }
 
 void __rtx_ft800_task(void const *arg) {
+	osEvent event;
+	q_can_data_item_t *item;
+	static lcd_state_header_t* state;
 	
 	//Initialization of __rtx_ft800_task
 	__ft800_task_init();
+	state = main_state();
 	
 	while(1) {
-		 //admin_fault_details_state();
-		 //FT800_VehicleStatusScreen();
+		//admin_fault_details_state();
+		//FT800_VehicleStatusScreen();
 		//admin_fault_log_state();
 		//main_state();
+		//admin_menu_state();
+		//admin_vehicle_status_state();
+		//login_state();
+		//main_state();	
+//			event = osMessageGet(q_can, osWaitForever);
+//			if(event.status == osEventMessage) {
+//				item = event.value.p;
+//				if(item) {
+//					__NOP();
+//				}
+//				osPoolFree(q_can_pool, item);
+//			}
+		state = state->process_input(state);
+		state->update_frame(item);
+		
+		osDelay(10);
 	 }
 }
 
@@ -598,724 +621,724 @@ void FT800_CMD_Button(int16_t x, int16_t y, int16_t w, int16_t h, int16_t font, 
 	}		
 }
 
-void FT800_MainScreen(void) {
-	uint32_t tagval = 0;
-	uint16_t x = 0;
-	uint16_t y = 0;
-	
-	while(1)
-	{		
-		do
-		{
-			cmdBufferRd = FT800_Mem_Read16(REG_CMD_READ);					// Read the graphics processor read pointer
-			cmdBufferWr = FT800_Mem_Read16(REG_CMD_WRITE); 				// Read the graphics processor write pointer
-		}while (cmdBufferWr != cmdBufferRd);									// Wait until the two registers match
-  
-		set_cmd_offset(cmdBufferWr);													// The new starting point the first location after the last command
-				
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (CMD_DLSTART));// Start the display list
-		increase_cmd_offset(4);								// Update the command pointer
-  
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (DL_CLEAR_RGB | BLACK));
-																												// Set the default clear color to black
-		increase_cmd_offset(4);								// Update the command pointer
+//void FT800_MainScreen(void) {
+//	uint32_t tagval = 0;
+//	uint16_t x = 0;
+//	uint16_t y = 0;
+//	
+//	while(1)
+//	{		
+//		do
+//		{
+//			cmdBufferRd = FT800_Mem_Read16(REG_CMD_READ);					// Read the graphics processor read pointer
+//			cmdBufferWr = FT800_Mem_Read16(REG_CMD_WRITE); 				// Read the graphics processor write pointer
+//		}while (cmdBufferWr != cmdBufferRd);									// Wait until the two registers match
+//  
+//		set_cmd_offset(cmdBufferWr);													// The new starting point the first location after the last command
+//				
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (CMD_DLSTART));// Start the display list
+//		increase_cmd_offset(4);								// Update the command pointer
+//  
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (DL_CLEAR_RGB | BLACK));
+//																												// Set the default clear color to black
+//		increase_cmd_offset(4);								// Update the command pointer
 
 
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (DL_CLEAR | CLR_COL | CLR_STN | CLR_TAG));
-																												// Clear the screen - this and the previous prevent artifacts between lists
-																												// Attributes are the color, stencil and tag buffers
-		increase_cmd_offset(4);							// Update the command pointer
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (DL_CLEAR | CLR_COL | CLR_STN | CLR_TAG));
+//																												// Clear the screen - this and the previous prevent artifacts between lists
+//																												// Attributes are the color, stencil and tag buffers
+//		increase_cmd_offset(4);							// Update the command pointer
 
-		tagval = FT800_Mem_Read32(REG_INT_FLAGS);
-		
-		if((uint32_t)(tagval & (1UL << 31)) == 0)
-		{
-			tagval = FT800_Mem_Read32(REG_TOUCH_TAG_XY);
-			
-			y = tagval & 0x3ff;
-			x = (tagval >> 16) & 0x3ff;
-			
-			if(x > 566 && y > 906)
-			{
-				__NOP();//fault history
-				FT800_Init();
-			}
-		}
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), DL_COLOR_RGB | GREEN); // Indicate to draw a point (dot)
-		increase_cmd_offset(4);	
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (DL_BEGIN | RECTS)); // Indicate to draw a point (dot)
-		increase_cmd_offset(4);	
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(0,0)); // Indicate to draw a point (dot)
-		increase_cmd_offset(4);	
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(240*16,136*16)); // Indicate to draw a point (dot)
-		increase_cmd_offset(4);
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), DL_END); // Indicate to draw a point (dot)
-		increase_cmd_offset(4);
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), DL_COLOR_RGB | WHITE); // Indicate to draw a point (dot)
-		increase_cmd_offset(4);	
-		
-		FT800_CMD_Button(266, 0, 214, 31, 29, 0, "               Log");
-				
-		/*************************************************************************/
-		/***************** Nacrtaj najvecu kruznicu ******************************/
-		/*************************************************************************/
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), DL_COLOR_RGB | 0xFF8000); // Indicate to draw a point (dot)
-		increase_cmd_offset(4);
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), POINT_SIZE(2240)); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (DL_BEGIN | FTPOINTS)); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);	
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(240*16,136*16)); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);	
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), DL_END); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), DL_COLOR_RGB | BLACK); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), POINT_SIZE(2160)); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (DL_BEGIN | FTPOINTS)); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);	
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(240*16,136*16)); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);	
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), DL_END); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);
-					
-		/*************************************************************************/
-		/***************** Nacrtaj linije  ******************************/
-		/*************************************************************************/			
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), DL_COLOR_RGB | 0xFF8000); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);
+//		tagval = FT800_Mem_Read32(REG_INT_FLAGS);
+//		
+//		if((uint32_t)(tagval & (1UL << 31)) == 0)
+//		{
+//			tagval = FT800_Mem_Read32(REG_TOUCH_TAG_XY);
+//			
+//			y = tagval & 0x3ff;
+//			x = (tagval >> 16) & 0x3ff;
+//			
+//			if(x > 566 && y > 906)
+//			{
+//				__NOP();//fault history
+//				FT800_Init();
+//			}
+//		}
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), DL_COLOR_RGB | GREEN); // Indicate to draw a point (dot)
+//		increase_cmd_offset(4);	
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (DL_BEGIN | RECTS)); // Indicate to draw a point (dot)
+//		increase_cmd_offset(4);	
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(0,0)); // Indicate to draw a point (dot)
+//		increase_cmd_offset(4);	
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(240*16,136*16)); // Indicate to draw a point (dot)
+//		increase_cmd_offset(4);
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), DL_END); // Indicate to draw a point (dot)
+//		increase_cmd_offset(4);
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), DL_COLOR_RGB | WHITE); // Indicate to draw a point (dot)
+//		increase_cmd_offset(4);	
+//		
+//		FT800_CMD_Button(266, 0, 214, 31, 29, 0, "               Log");
+//				
+//		/*************************************************************************/
+//		/***************** Nacrtaj najvecu kruznicu ******************************/
+//		/*************************************************************************/
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), DL_COLOR_RGB | 0xFF8000); // Indicate to draw a point (dot)
+//		increase_cmd_offset(4);
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), POINT_SIZE(2240)); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (DL_BEGIN | FTPOINTS)); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);	
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(240*16,136*16)); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);	
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), DL_END); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), DL_COLOR_RGB | BLACK); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), POINT_SIZE(2160)); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (DL_BEGIN | FTPOINTS)); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);	
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(240*16,136*16)); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);	
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), DL_END); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);
+//					
+//		/*************************************************************************/
+//		/***************** Nacrtaj linije  ******************************/
+//		/*************************************************************************/			
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), DL_COLOR_RGB | 0xFF8000); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);
 
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), LINE_WIDTH(20)); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), BEGIN(LINES)); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(0*16,136*16)); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(100*16,136*16)); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(0*16,204*16)); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(120*16,204*16)); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(359*16,204*16)); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(480*16,204*16)); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(378*16,136*16)); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(480*16,136*16)); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(328*16,31*16)); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(480*16,31*16)); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), COLOR_RGB(255,0,0)); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(434*16,61*16)); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(402*16,119*16)); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(402*16,119*16)); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(470*16,119*16)); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(435*16,61*16)); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(470*16,118*16)); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);
-		
-		/* SPEEDOMETER */
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), COLOR_RGB(255,255,255)); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(135 *16,194 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(123 *16,201 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(131 *16,187 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(119 *16,193 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(128 *16,180 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(115 *16,185 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(126 *16,173 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(113 *16,177 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(124 *16,166 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(110 *16,169 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(122 *16,158 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(108 *16,161 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(121 *16,151 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(107 *16,153 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(120 *16,144 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(106 *16,144 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(120 *16,136 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(106 *16,136 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(120 *16,128 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(106 *16,128 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(121 *16,121 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(107 *16,119 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(122 *16,114 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(108 *16,111 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(124 *16,106 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(110 *16,103 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(126 *16,99 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(113 *16,95 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(128 *16,92 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(115 *16,87 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(131 *16,85 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(119 *16,79 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(135 *16,78 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(123 *16,71 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(139 *16,72 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(127 *16,64 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(143 *16,65 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(132 *16,57 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(148 *16,60 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(137 *16,51 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(153 *16,54 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(142 *16,44 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(158 *16,49 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(148 *16,38 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(164 *16,44 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(155 *16,33 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(169 *16,39 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(161 *16,28 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(176 *16,35 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(168 *16,23 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(182 *16,31 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(175 *16,19 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(189 *16,27 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), COLOR_RGB(67,67,67)); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(183 *16,15 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(196 *16,24 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(191 *16,11 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(203 *16,22 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(199 *16,9 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(210 *16,20 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(207 *16,6 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(218 *16,18 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(215 *16,4 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(225 *16,17 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(223 *16,3 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(232 *16,16 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(232 *16,2 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(240 *16,16 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(240 *16,2 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(248 *16,16 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(248 *16,2 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(255 *16,17 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(257 *16,3 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(262 *16,18 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(265 *16,4 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(270 *16,20 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(273 *16,6 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(277 *16,22 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(281 *16,9 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(284 *16,24 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(289 *16,11 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(291 *16,27 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(297 *16,15 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(298 *16,31 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(305 *16,19 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(304 *16,35 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(312 *16,23 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(311 *16,39 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(319 *16,28 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(316 *16,44 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(325 *16,33 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(322 *16,49 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(332 *16,38 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(327 *16,54 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(338 *16,44 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(332 *16,60 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(343 *16,51 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(337 *16,65 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(348 *16,57 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(341 *16,72 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(353 *16,64 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(345 *16,78 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(357 *16,71 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(349 *16,85 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(361 *16,79 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(352 *16,92 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(365 *16,87 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(354 *16,99 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(367 *16,95 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(356 *16,106 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(370 *16,103 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(358 *16,114 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(372 *16,111 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(359 *16,121 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(373 *16,119 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(360 *16,128 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(374 *16,128 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(360 *16,136 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(374 *16,136 *16));
-		increase_cmd_offset( 4);		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(360 *16,136 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(374 *16,136 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(360 *16,144 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(374 *16,144 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(359 *16,151 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(373 *16,153 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(358 *16,158 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(372 *16,161 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(356 *16,166 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(370 *16,169 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(354 *16,173 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(367 *16,177 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(352 *16,180 *16));
-		increase_cmd_offset( 4);
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(365 *16,185 *16));
-		increase_cmd_offset( 4);
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), DL_END); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);
-				
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), DL_COLOR_RGB | WHITE); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);
-		
-		
-		FT800_CMD_Text(1, 140, 26, 0, "Battery Current");	
-		FT800_CMD_Text(21, 157, 31, 0, "4 A");	
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), LINE_WIDTH(20)); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), BEGIN(LINES)); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(0*16,136*16)); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(100*16,136*16)); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(0*16,204*16)); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(120*16,204*16)); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(359*16,204*16)); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(480*16,204*16)); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(378*16,136*16)); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(480*16,136*16)); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(328*16,31*16)); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(480*16,31*16)); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), COLOR_RGB(255,0,0)); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(434*16,61*16)); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(402*16,119*16)); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(402*16,119*16)); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(470*16,119*16)); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(435*16,61*16)); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(470*16,118*16)); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);
+//		
+//		/* SPEEDOMETER */
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), COLOR_RGB(255,255,255)); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(135 *16,194 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(123 *16,201 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(131 *16,187 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(119 *16,193 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(128 *16,180 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(115 *16,185 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(126 *16,173 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(113 *16,177 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(124 *16,166 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(110 *16,169 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(122 *16,158 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(108 *16,161 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(121 *16,151 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(107 *16,153 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(120 *16,144 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(106 *16,144 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(120 *16,136 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(106 *16,136 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(120 *16,128 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(106 *16,128 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(121 *16,121 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(107 *16,119 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(122 *16,114 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(108 *16,111 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(124 *16,106 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(110 *16,103 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(126 *16,99 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(113 *16,95 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(128 *16,92 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(115 *16,87 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(131 *16,85 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(119 *16,79 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(135 *16,78 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(123 *16,71 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(139 *16,72 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(127 *16,64 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(143 *16,65 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(132 *16,57 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(148 *16,60 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(137 *16,51 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(153 *16,54 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(142 *16,44 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(158 *16,49 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(148 *16,38 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(164 *16,44 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(155 *16,33 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(169 *16,39 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(161 *16,28 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(176 *16,35 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(168 *16,23 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(182 *16,31 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(175 *16,19 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(189 *16,27 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), COLOR_RGB(67,67,67)); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(183 *16,15 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(196 *16,24 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(191 *16,11 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(203 *16,22 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(199 *16,9 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(210 *16,20 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(207 *16,6 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(218 *16,18 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(215 *16,4 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(225 *16,17 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(223 *16,3 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(232 *16,16 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(232 *16,2 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(240 *16,16 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(240 *16,2 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(248 *16,16 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(248 *16,2 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(255 *16,17 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(257 *16,3 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(262 *16,18 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(265 *16,4 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(270 *16,20 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(273 *16,6 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(277 *16,22 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(281 *16,9 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(284 *16,24 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(289 *16,11 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(291 *16,27 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(297 *16,15 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(298 *16,31 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(305 *16,19 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(304 *16,35 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(312 *16,23 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(311 *16,39 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(319 *16,28 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(316 *16,44 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(325 *16,33 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(322 *16,49 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(332 *16,38 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(327 *16,54 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(338 *16,44 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(332 *16,60 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(343 *16,51 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(337 *16,65 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(348 *16,57 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(341 *16,72 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(353 *16,64 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(345 *16,78 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(357 *16,71 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(349 *16,85 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(361 *16,79 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(352 *16,92 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(365 *16,87 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(354 *16,99 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(367 *16,95 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(356 *16,106 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(370 *16,103 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(358 *16,114 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(372 *16,111 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(359 *16,121 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(373 *16,119 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(360 *16,128 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(374 *16,128 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(360 *16,136 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(374 *16,136 *16));
+//		increase_cmd_offset( 4);		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(360 *16,136 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(374 *16,136 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(360 *16,144 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(374 *16,144 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(359 *16,151 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(373 *16,153 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(358 *16,158 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(372 *16,161 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(356 *16,166 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(370 *16,169 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(354 *16,173 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(367 *16,177 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(352 *16,180 *16));
+//		increase_cmd_offset( 4);
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(365 *16,185 *16));
+//		increase_cmd_offset( 4);
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), DL_END); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);
+//				
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), DL_COLOR_RGB | WHITE); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);
+//		
+//		
+//		FT800_CMD_Text(1, 140, 26, 0, "Battery Current");	
+//		FT800_CMD_Text(21, 157, 31, 0, "4 A");	
 
-		FT800_CMD_Text(13, 208, 26, 0, "Battery Volts");
-			
-		FT800_CMD_Text(5, 226, 31, 0, "78.4 V");
-		
-		FT800_CMD_Text(404, 140, 26, 0, "AC Motor");	
-		FT800_CMD_Text(410, 152, 26, 0, "Current");	
-		FT800_CMD_Text(409, 167, 30, 0, "7 A");
+//		FT800_CMD_Text(13, 208, 26, 0, "Battery Volts");
+//			
+//		FT800_CMD_Text(5, 226, 31, 0, "78.4 V");
+//		
+//		FT800_CMD_Text(404, 140, 26, 0, "AC Motor");	
+//		FT800_CMD_Text(410, 152, 26, 0, "Current");	
+//		FT800_CMD_Text(409, 167, 30, 0, "7 A");
 
-		FT800_CMD_Text(335, 244, 26, 0, "26 February 14 15:17");		
-		
-		FT800_CMD_Text(194, 90, 31, 0, "1124");
-		
-		FT800_CMD_Text(25, 50, 29, 0, "100%");
-		
-		FT800_CMD_Text(194, 139, 31, 0, "D");
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), COLOR_RGB(67,67,67)); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);
-		
-		FT800_CMD_Text(229, 139, 31, 0, "N");
-		
-		FT800_CMD_Text(264, 139, 31, 0, "R");
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), COLOR_RGB(255,80,0)); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);
-		
-		FT800_CMD_Text(293, 117, 26, 0, "rpm");
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), COLOR_RGB(255,0,0)); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);
-		
-		
-		FT800_CMD_Text(430, 73, 31, 0, "!");
-			
+//		FT800_CMD_Text(335, 244, 26, 0, "26 February 14 15:17");		
+//		
+//		FT800_CMD_Text(194, 90, 31, 0, "1124");
+//		
+//		FT800_CMD_Text(25, 50, 29, 0, "100%");
+//		
+//		FT800_CMD_Text(194, 139, 31, 0, "D");
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), COLOR_RGB(67,67,67)); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);
+//		
+//		FT800_CMD_Text(229, 139, 31, 0, "N");
+//		
+//		FT800_CMD_Text(264, 139, 31, 0, "R");
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), COLOR_RGB(255,80,0)); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);
+//		
+//		FT800_CMD_Text(293, 117, 26, 0, "rpm");
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), COLOR_RGB(255,0,0)); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);
+//		
+//		
+//		FT800_CMD_Text(430, 73, 31, 0, "!");
+//			
 
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (DL_DISPLAY));		// Instruct the graphics processor to show the list
-		increase_cmd_offset( 4);								// Update the command pointer
-	
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (CMD_SWAP));			// Make this list active
-		increase_cmd_offset( 4);								// Update the command pointer
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (DL_DISPLAY));		// Instruct the graphics processor to show the list
+//		increase_cmd_offset( 4);								// Update the command pointer
+//	
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (CMD_SWAP));			// Make this list active
+//		increase_cmd_offset( 4);								// Update the command pointer
 
-		FT800_Mem_Write16(REG_CMD_WRITE, get_cmd_offset());					// Update the ring buffer pointer so the graphics processor starts executing	
-		
-		osDelay(10);
-	}
-}
+//		FT800_Mem_Write16(REG_CMD_WRITE, get_cmd_offset());					// Update the ring buffer pointer so the graphics processor starts executing	
+//		
+//		osDelay(10);
+//	}
+//}
 
-void FT800_LoginScreen(void) {
-	
-	//uint32_t tagval = 0;
-	//uint16_t x = 0;
-	//uint16_t y = 0;
-	
-	while(1)
-	{		
-		do
-		{
-			cmdBufferRd = FT800_Mem_Read16(REG_CMD_READ);					// Read the graphics processor read pointer
-			cmdBufferWr = FT800_Mem_Read16(REG_CMD_WRITE); 				// Read the graphics processor write pointer
-		}while (cmdBufferWr != cmdBufferRd);									// Wait until the two registers match
-  
-		set_cmd_offset(cmdBufferWr);															// The new starting point the first location after the last command
-				
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (CMD_DLSTART));// Start the display list
-		increase_cmd_offset( 4);								// Update the command pointer
-  
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (DL_CLEAR_RGB | BLACK));
-																												// Set the default clear color to black
-		increase_cmd_offset( 4);								// Update the command pointer
-
-
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (DL_CLEAR | CLR_COL | CLR_STN | CLR_TAG));
-																												// Clear the screen - this and the previous prevent artifacts between lists
-																												// Attributes are the color, stencil and tag buffers
-		increase_cmd_offset( 4);								// Update the command pointer
-				
-		FT800_CMD_Keys(1,82, 478,35,23,0, "qwertyuiop");
-		FT800_CMD_Keys(27,120,432,35,23, 0, "asdfghjkl");
-		FT800_CMD_Button(2,158,85,35,21,0,"Caps Lock");
-		FT800_CMD_Keys(91,158,308,35,23, 0, "zxcvbnm");
-		FT800_CMD_Button(401,158,78,35,21,0,"Delete");
-		FT800_CMD_Button(2,196,38,35,20,0,"&123");
-		FT800_CMD_Button(43,196,357,35,20,0,"");
-		FT800_CMD_Button(403,196,18,35,24,0,".");
-		FT800_CMD_Button(424,196,53,35,21,0,"Enter");
-		FT800_CMD_Button(2,236,237,35,21,0,"Main Screen");
-		FT800_CMD_Button(243,236,237,35,21,0,"LOGOUT");
-		
-		FT800_CMD_Text(129,10,31, 0,"Text|");
-		//FT800_CMD_Button(50,122,300,35,23,0,"");
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (DL_DISPLAY));		// Instruct the graphics processor to show the list
-		increase_cmd_offset( 4);								// Update the command pointer
-	
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (CMD_SWAP));			// Make this list active
-		increase_cmd_offset( 4);								// Update the command pointer
-
-		FT800_Mem_Write16(REG_CMD_WRITE, get_cmd_offset());
-		
-		osDelay(10);
-	}
-}
-
-void FT800_VehicleStatusScreen(void) {
-	
-	uint32_t tagval = 0;
-	uint16_t x, y;
-	
-	while(1)
-	{		
-		do
-		{
-			cmdBufferRd = FT800_Mem_Read16(REG_CMD_READ);					// Read the graphics processor read pointer
-			cmdBufferWr = FT800_Mem_Read16(REG_CMD_WRITE); 				// Read the graphics processor write pointer
-		}while (cmdBufferWr != cmdBufferRd);									// Wait until the two registers match
-  
-		set_cmd_offset(cmdBufferWr);															// The new starting point the first location after the last command
-    		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (CMD_DLSTART));// Start the display list
-		increase_cmd_offset( 4);								// Update the command pointer
-  
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (DL_CLEAR_RGB | BLACK));
-																												// Set the default clear color to black
-		increase_cmd_offset( 4);								// Update the command pointer
+//void FT800_LoginScreen(void) {
+//	
+//	//uint32_t tagval = 0;
+//	//uint16_t x = 0;
+//	//uint16_t y = 0;
+//	
+//	while(1)
+//	{		
+//		do
+//		{
+//			cmdBufferRd = FT800_Mem_Read16(REG_CMD_READ);					// Read the graphics processor read pointer
+//			cmdBufferWr = FT800_Mem_Read16(REG_CMD_WRITE); 				// Read the graphics processor write pointer
+//		}while (cmdBufferWr != cmdBufferRd);									// Wait until the two registers match
+//  
+//		set_cmd_offset(cmdBufferWr);															// The new starting point the first location after the last command
+//				
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (CMD_DLSTART));// Start the display list
+//		increase_cmd_offset( 4);								// Update the command pointer
+//  
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (DL_CLEAR_RGB | BLACK));
+//																												// Set the default clear color to black
+//		increase_cmd_offset( 4);								// Update the command pointer
 
 
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (DL_CLEAR | CLR_COL | CLR_STN | CLR_TAG));
-																												// Clear the screen - this and the previous prevent artifacts between lists
-																												// Attributes are the color, stencil and tag buffers
-		increase_cmd_offset( 4);								// Update the command pointer
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (DL_CLEAR | CLR_COL | CLR_STN | CLR_TAG));
+//																												// Clear the screen - this and the previous prevent artifacts between lists
+//																												// Attributes are the color, stencil and tag buffers
+//		increase_cmd_offset( 4);								// Update the command pointer
+//				
+//		FT800_CMD_Keys(1,82, 478,35,23,0, "qwertyuiop");
+//		FT800_CMD_Keys(27,120,432,35,23, 0, "asdfghjkl");
+//		FT800_CMD_Button(2,158,85,35,21,0,"Caps Lock");
+//		FT800_CMD_Keys(91,158,308,35,23, 0, "zxcvbnm");
+//		FT800_CMD_Button(401,158,78,35,21,0,"Delete");
+//		FT800_CMD_Button(2,196,38,35,20,0,"&123");
+//		FT800_CMD_Button(43,196,357,35,20,0,"");
+//		FT800_CMD_Button(403,196,18,35,24,0,".");
+//		FT800_CMD_Button(424,196,53,35,21,0,"Enter");
+//		FT800_CMD_Button(2,236,237,35,21,0,"Main Screen");
+//		FT800_CMD_Button(243,236,237,35,21,0,"LOGOUT");
+//		
+//		FT800_CMD_Text(129,10,31, 0,"Text|");
+//		//FT800_CMD_Button(50,122,300,35,23,0,"");
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (DL_DISPLAY));		// Instruct the graphics processor to show the list
+//		increase_cmd_offset( 4);								// Update the command pointer
+//	
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (CMD_SWAP));			// Make this list active
+//		increase_cmd_offset( 4);								// Update the command pointer
 
-		tagval = FT800_Mem_Read32(REG_TOUCH_DIRECT_XY);
-		if((uint32_t)(tagval & (1UL << 31)) == 0)
-		{
-			y = tagval & 0x3ff;
-			x = (tagval >> 16) & 0x3ff;
-			
-			if(y > 0 && y < 210)
-			{
-				__NOP();//fault history
-				//ft800_init();
-				//MenuScreen();
-			}
-		}
-		
-		FT800_CMD_Text(0, 0, 29, 0, "Battery");
-		FT800_CMD_Text(248, 0, 29, 0, "48.8 V");
-		FT800_CMD_Text(480, 0, 29, OPT_RIGHTX, "4 A");
-		
-		FT800_CMD_Text(0, 22, 29, 0, "Traction drive state");
-		FT800_CMD_Text(480, 22, 29, OPT_RIGHTX, "DRIVE");
-		
-		FT800_CMD_Text(0, 48, 29, 0, "Cap. Volts");
-		FT800_CMD_Text(480, 48, 29, OPT_RIGHTX, "48.8 V");
-		
-		FT800_CMD_Text(0, 70, 29, 0, "Cont. Temp.");
-		FT800_CMD_Text(480, 70, 29, OPT_RIGHTX, "13 C");
-		
-		FT800_CMD_Text(0, 92, 29, 0, "Motor Volts");
-		FT800_CMD_Text(480, 92, 29, OPT_RIGHTX, "46.0 C");
-		
-		FT800_CMD_Text(0, 114, 29, 0, "Motor Amps");
-		FT800_CMD_Text(480, 114, 29, OPT_RIGHTX, "5 A");
-		
-		FT800_CMD_Text(0, 136, 29, 0, "Motor RPM");
-		FT800_CMD_Text(480, 136, 29, OPT_RIGHTX, "780 RPM");
-		
-		FT800_CMD_Text(0, 158, 29, 0, "Motor Temperature");
-		FT800_CMD_Text(480, 158, 29, OPT_RIGHTX, "22 C");
-		
-		FT800_CMD_Text(0, 180, 29, 0, "Motor Torque");
-		FT800_CMD_Text(480, 180, 29, OPT_RIGHTX, "0.0 Nm");
-		
-		FT800_CMD_Button(0, 210, 480, 62, 30, 0, "Back");
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), DL_COLOR_RGB | 0x00ffff); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);
+//		FT800_Mem_Write16(REG_CMD_WRITE, get_cmd_offset());
+//		
+//		osDelay(10);
+//	}
+//}
 
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), LINE_WIDTH(20)); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), BEGIN(LINES)); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(0*16,50*16)); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(480*16,50*16)); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), DL_END); // Indicate to draw a point (dot)
-		increase_cmd_offset( 4);
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (DL_DISPLAY));		// Instruct the graphics processor to show the list
-		increase_cmd_offset( 4);								// Update the command pointer
-	
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (CMD_SWAP));			// Make this list active
-		increase_cmd_offset( 4);								// Update the command pointer
-
-		FT800_Mem_Write16(REG_CMD_WRITE, get_cmd_offset());					// Update the ring buffer pointer so the graphics processor starts executing			
-
-		osDelay(10);
-	}
-}
-
-void FT800_AdminMenuScreen(void) {
-	
-	uint32_t tagval = 0;
-	uint16_t x, y;
-	
-	while(1)
-	{		
-		do
-		{
-			cmdBufferRd = FT800_Mem_Read16(REG_CMD_READ);					// Read the graphics processor read pointer
-			cmdBufferWr = FT800_Mem_Read16(REG_CMD_WRITE); 				// Read the graphics processor write pointer
-		}while (cmdBufferWr != cmdBufferRd);									// Wait until the two registers match
-  
-		set_cmd_offset(cmdBufferWr);															
-    		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (CMD_DLSTART));// Start the display list
-		increase_cmd_offset( 4);								// Update the command pointer
-  
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (DL_CLEAR_RGB | BLACK));
-																												// Set the default clear color to black
-		increase_cmd_offset( 4);								// Update the command pointer
+//void FT800_VehicleStatusScreen(void) {
+//	
+//	uint32_t tagval = 0;
+//	uint16_t x, y;
+//	
+//	while(1)
+//	{		
+//		do
+//		{
+//			cmdBufferRd = FT800_Mem_Read16(REG_CMD_READ);					// Read the graphics processor read pointer
+//			cmdBufferWr = FT800_Mem_Read16(REG_CMD_WRITE); 				// Read the graphics processor write pointer
+//		}while (cmdBufferWr != cmdBufferRd);									// Wait until the two registers match
+//  
+//		set_cmd_offset(cmdBufferWr);															// The new starting point the first location after the last command
+//    		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (CMD_DLSTART));// Start the display list
+//		increase_cmd_offset( 4);								// Update the command pointer
+//  
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (DL_CLEAR_RGB | BLACK));
+//																												// Set the default clear color to black
+//		increase_cmd_offset( 4);								// Update the command pointer
 
 
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (DL_CLEAR | CLR_COL | CLR_STN | CLR_TAG));
-																												// Clear the screen - this and the previous prevent artifacts between lists
-																												// Attributes are the color, stencil and tag buffers
-		increase_cmd_offset( 4);								// Update the command pointer
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (DL_CLEAR | CLR_COL | CLR_STN | CLR_TAG));
+//																												// Clear the screen - this and the previous prevent artifacts between lists
+//																												// Attributes are the color, stencil and tag buffers
+//		increase_cmd_offset( 4);								// Update the command pointer
 
-		tagval = FT800_Mem_Read32(REG_TOUCH_DIRECT_XY);
-		if((uint32_t)(tagval & (1UL << 31)) == 0)
-		{
-			y = tagval & 0x3ff;
-			x = (tagval >> 16) & 0x3ff;
-			
-			if(y > 0 && y < 256)
-			{
-				__NOP();//fault log
-			}
-			else if(y > 256 && y < 512)
-			{
-				__NOP();//test
-			}
-			else if(y > 512 && y < 768)
-			{
-				__NOP();//vehicle status
-			}
-			else if(y > 768 && y < 1023)
-			{
-				__NOP();//main
-			}
-		}
-			
-		FT800_CMD_Button(0, 0, 480, 68, 31, 0, "Main");
-		
-		FT800_CMD_Button(0, 68, 480, 68, 31, 0, "Vehicle Status");
-	
-		FT800_CMD_Button(0, 136, 480, 68, 31, 0, "Test");
-		
-		FT800_CMD_Button(0, 204, 480, 68, 31, 0, "Fault Log");
-			
-		
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (DL_DISPLAY));		// Instruct the graphics processor to show the list
-		increase_cmd_offset( 4);								// Update the command pointer
-	
-		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (CMD_SWAP));			// Make this list active
-		increase_cmd_offset( 4);								// Update the command pointer
+//		tagval = FT800_Mem_Read32(REG_TOUCH_DIRECT_XY);
+//		if((uint32_t)(tagval & (1UL << 31)) == 0)
+//		{
+//			y = tagval & 0x3ff;
+//			x = (tagval >> 16) & 0x3ff;
+//			
+//			if(y > 0 && y < 210)
+//			{
+//				__NOP();//fault history
+//				//ft800_init();
+//				//MenuScreen();
+//			}
+//		}
+//		
+//		FT800_CMD_Text(0, 0, 29, 0, "Battery");
+//		FT800_CMD_Text(248, 0, 29, 0, "48.8 V");
+//		FT800_CMD_Text(480, 0, 29, OPT_RIGHTX, "4 A");
+//		
+//		FT800_CMD_Text(0, 22, 29, 0, "Traction drive state");
+//		FT800_CMD_Text(480, 22, 29, OPT_RIGHTX, "DRIVE");
+//		
+//		FT800_CMD_Text(0, 48, 29, 0, "Cap. Volts");
+//		FT800_CMD_Text(480, 48, 29, OPT_RIGHTX, "48.8 V");
+//		
+//		FT800_CMD_Text(0, 70, 29, 0, "Cont. Temp.");
+//		FT800_CMD_Text(480, 70, 29, OPT_RIGHTX, "13 C");
+//		
+//		FT800_CMD_Text(0, 92, 29, 0, "Motor Volts");
+//		FT800_CMD_Text(480, 92, 29, OPT_RIGHTX, "46.0 C");
+//		
+//		FT800_CMD_Text(0, 114, 29, 0, "Motor Amps");
+//		FT800_CMD_Text(480, 114, 29, OPT_RIGHTX, "5 A");
+//		
+//		FT800_CMD_Text(0, 136, 29, 0, "Motor RPM");
+//		FT800_CMD_Text(480, 136, 29, OPT_RIGHTX, "780 RPM");
+//		
+//		FT800_CMD_Text(0, 158, 29, 0, "Motor Temperature");
+//		FT800_CMD_Text(480, 158, 29, OPT_RIGHTX, "22 C");
+//		
+//		FT800_CMD_Text(0, 180, 29, 0, "Motor Torque");
+//		FT800_CMD_Text(480, 180, 29, OPT_RIGHTX, "0.0 Nm");
+//		
+//		FT800_CMD_Button(0, 210, 480, 62, 30, 0, "Back");
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), DL_COLOR_RGB | 0x00ffff); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);
 
-		FT800_Mem_Write16(REG_CMD_WRITE, get_cmd_offset());					// Update the ring buffer pointer so the graphics processor starts executing	
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), LINE_WIDTH(20)); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), BEGIN(LINES)); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(0*16,50*16)); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), VERTEX2F(480*16,50*16)); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), DL_END); // Indicate to draw a point (dot)
+//		increase_cmd_offset( 4);
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (DL_DISPLAY));		// Instruct the graphics processor to show the list
+//		increase_cmd_offset( 4);								// Update the command pointer
+//	
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (CMD_SWAP));			// Make this list active
+//		increase_cmd_offset( 4);								// Update the command pointer
 
-		osDelay(10);
-  }
-}
+//		FT800_Mem_Write16(REG_CMD_WRITE, get_cmd_offset());					// Update the ring buffer pointer so the graphics processor starts executing			
+
+//		osDelay(10);
+//	}
+//}
+
+//void FT800_AdminMenuScreen(void) {
+//	
+//	uint32_t tagval = 0;
+//	uint16_t x, y;
+//	
+//	while(1)
+//	{		
+//		do
+//		{
+//			cmdBufferRd = FT800_Mem_Read16(REG_CMD_READ);					// Read the graphics processor read pointer
+//			cmdBufferWr = FT800_Mem_Read16(REG_CMD_WRITE); 				// Read the graphics processor write pointer
+//		}while (cmdBufferWr != cmdBufferRd);									// Wait until the two registers match
+//  
+//		set_cmd_offset(cmdBufferWr);															
+//    		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (CMD_DLSTART));// Start the display list
+//		increase_cmd_offset( 4);								// Update the command pointer
+//  
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (DL_CLEAR_RGB | BLACK));
+//																												// Set the default clear color to black
+//		increase_cmd_offset( 4);								// Update the command pointer
+
+
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (DL_CLEAR | CLR_COL | CLR_STN | CLR_TAG));
+//																												// Clear the screen - this and the previous prevent artifacts between lists
+//																												// Attributes are the color, stencil and tag buffers
+//		increase_cmd_offset( 4);								// Update the command pointer
+
+//		tagval = FT800_Mem_Read32(REG_TOUCH_DIRECT_XY);
+//		if((uint32_t)(tagval & (1UL << 31)) == 0)
+//		{
+//			y = tagval & 0x3ff;
+//			x = (tagval >> 16) & 0x3ff;
+//			
+//			if(y > 0 && y < 256)
+//			{
+//				__NOP();//fault log
+//			}
+//			else if(y > 256 && y < 512)
+//			{
+//				__NOP();//test
+//			}
+//			else if(y > 512 && y < 768)
+//			{
+//				__NOP();//vehicle status
+//			}
+//			else if(y > 768 && y < 1023)
+//			{
+//				__NOP();//main
+//			}
+//		}
+//			
+//		FT800_CMD_Button(0, 0, 480, 68, 31, 0, "Main");
+//		
+//		FT800_CMD_Button(0, 68, 480, 68, 31, 0, "Vehicle Status");
+//	
+//		FT800_CMD_Button(0, 136, 480, 68, 31, 0, "Test");
+//		
+//		FT800_CMD_Button(0, 204, 480, 68, 31, 0, "Fault Log");
+//			
+//		
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (DL_DISPLAY));		// Instruct the graphics processor to show the list
+//		increase_cmd_offset( 4);								// Update the command pointer
+//	
+//		FT800_Mem_Write32(RAM_CMD + get_cmd_offset(), (CMD_SWAP));			// Make this list active
+//		increase_cmd_offset( 4);								// Update the command pointer
+
+//		FT800_Mem_Write16(REG_CMD_WRITE, get_cmd_offset());					// Update the ring buffer pointer so the graphics processor starts executing	
+
+//		osDelay(10);
+//  }
+//}
 
 static uint32_t cmd_offset = 0;
 
@@ -1341,20 +1364,20 @@ uint32_t increase_cmd_offset(uint32_t command_size) {
 	return cmd_offset;
 }
 
-//uint32_t incCMDOffset(uint32_t currentOffset, uint8_t commandSize) {
-//	
-//	static uint32_t newOffset;															// Used to hold new offset
-//	
-//	newOffset = currentOffset + commandSize;						// Calculate new offset
-//	
-//	if(newOffset > 4095)																// If new offset past boundary...
-//	{
-//			newOffset = (newOffset - 4096);									// ... roll over pointer
-//	}
-//	
-//	return newOffset;	
-//	
-//}
+////uint32_t incCMDOffset(uint32_t currentOffset, uint8_t commandSize) {
+////	
+////	static uint32_t newOffset;															// Used to hold new offset
+////	
+////	newOffset = currentOffset + commandSize;						// Calculate new offset
+////	
+////	if(newOffset > 4095)																// If new offset past boundary...
+////	{
+////			newOffset = (newOffset - 4096);									// ... roll over pointer
+////	}
+////	
+////	return newOffset;	
+////	
+////}
 
 
 

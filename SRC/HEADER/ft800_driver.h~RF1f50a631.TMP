@@ -1,13 +1,6 @@
 #ifndef __FT800_DRIVER_H
 #define __FT800_DRIVER_H
 
-/************************ HEADERS ************************/
-#include "stm32f4xx.h"
-#include "stm32f4xx_spi.h"
-#include "stm32f4xx_gpio.h"
-#include <string.h>
-#include "util.h"
-
 /************************ DEFINES ************************/
 #define FT800_PD_N  GPIO_Pin_0
 #define FT800_CS_N	GPIO_Pin_1
@@ -378,41 +371,11 @@
 #define ADMINSETTIME_SCREEN_ID					9
 #define ENTERSCREEN_ID									10
 
-#define CONVERTCOORDINATES_X(x) (uint16_t)(((float)(x)/480)*1024)
-#define CONVERTCOORDINATES_Y(y) (uint16_t)(((float)(y)/270)*1024)
-/*********************************STRUCTURES****************************************/
-struct lcd_state_header;
-typedef struct lcd_state_header* lcd_state_header_ptr;
-
-typedef struct lcd_state_header {
-	lcd_state_header_ptr (*process_input)(lcd_state_header_ptr);
-	void (*update_frame)(q_can_data_item_t*);
-} lcd_state_header_t;
-
-
-#define DECLARE_LCD_STATE(NAME) \
-	lcd_state_header_t* NAME##_process_input(lcd_state_header_t* lcd_state); 				\
-	void NAME##_update_frame(q_can_data_item_t* q_can_data); 												\
-	lcd_state_header_t* NAME##_state();																					
-	
-#define DEFINE_LCD_STATE(NAME)																									\
-	lcd_state_header_ptr NAME##_state() {																						\
-		static lcd_state_header_t state;																						\
-																																								\
-		state.process_input = NAME##_process_input;																		\
-		state.update_frame  = NAME##_update_frame;																		\
-																																								\
-		return &state;																															\
-	}
-
-DECLARE_LCD_STATE(admin_fault_details)
-DECLARE_LCD_STATE(admin_fault_log);
-DECLARE_LCD_STATE(admin_menu);
-DECLARE_LCD_STATE(admin_main);
-DECLARE_LCD_STATE(admin_vehicle_status);
-DECLARE_LCD_STATE(login);
-DECLARE_LCD_STATE(main);
-	
+/************************ HEADERS ************************/
+#include "stm32f4xx.h"
+#include "stm32f4xx_spi.h"
+#include "stm32f4xx_gpio.h"
+#include <string.h>
 /************************ FUNCTIONS ************************/
 void FT800_Cmd_Write(uint8_t ftCommand);
 uint32_t FT800_Mem_Read8(uint32_t ftAddress);
@@ -445,7 +408,7 @@ uint32_t get_cmd_offset(void);
 uint32_t increase_cmd_offset(uint32_t command_size);
 void set_cmd_offset(uint32_t new_cmd_offset_value);
 
-void __rtx_ft800_task(void const *arg);
+extern void __rtx_ft800_task(void const *arg);
 /************************ VARIABLES ************************/
 extern uint32_t ramDisplayList;									// Set beginning of display list memory 
 extern uint32_t ramCommandBuffer;

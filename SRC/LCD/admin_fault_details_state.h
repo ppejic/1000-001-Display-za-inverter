@@ -3,6 +3,6 @@
 
 #include "stm32f4xx.h"
 
-void admin_fault_details_state(void);
+//void admin_fault_details_state(void);
 
 #endif
